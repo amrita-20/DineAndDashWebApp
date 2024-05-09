@@ -1,0 +1,108 @@
+header {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+
+    background-color: rgb(50, 50, 50);
+    color: white;
+
+    height: 4rem;
+
+    position: sticky;
+    top: 0;
+}
+
+.logo-container {
+    grid-column: 3 span;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.search-container {
+    grid-column: 6 span;
+
+    display: flex;
+    justify-content: center;
+}
+
+.logo-title {
+    margin: 0;
+}
+
+.home-icon, .account-icon {
+    width: 2rem;
+}
+
+.button-home, .button-search, .button-cart, .button-menu {
+    background: none;
+    border: none;
+}
+
+.button-home, .button-search, .button-cart, .button-menu:hover {
+    cursor: pointer;
+}
+
+.form-search {
+    position: relative;
+}
+
+.search {
+    font-size: 1rem;
+
+    padding: 0.5rem;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+}
+
+.control-container {
+    grid-column: 3 span;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button-cart {
+    border: 2px solid white;
+    border-radius: 5px;
+
+    color: white;
+
+    font-size: 1rem;
+}
+
+.dropmenu {
+    position: relative;
+}
+
+.menu-list {
+    position: absolute;
+    overflow: hidden;
+    
+    height: 0;
+    line-height: 1.5rem;
+
+    margin: 0;
+    padding: 0.5rem;
+    
+    visibility: hidden;
+    list-style: none;
+    
+    background-color: black;
+}
+
+.menu-list.show {
+    height: auto;
+    
+    visibility: initial;
+}
+
+.menu-item:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
