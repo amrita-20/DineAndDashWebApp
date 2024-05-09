@@ -13,7 +13,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
 
-  const {loginwithRedirect} = useAuth0();
+  const {loginWithRedirect} = useAuth0();
   return (
     <header>
       <div className="logo-container">
@@ -35,7 +35,7 @@ function NavBar() {
             />
           </button>
 
-          <button onClick={async () => await loginwithRedirect()}>Login</button>
+          <button onClick={async () => await loginWithRedirect()}>Login</button>
         </nav>
       </div>
     </header>

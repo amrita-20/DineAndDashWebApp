@@ -1,8 +1,8 @@
 import {Auth0Provider} from "@auth0/auth0-react";
 function Auth0ProviderWithNav({children}) {
-    const domain = import.meta.env.AUTH0_DOMAIN;
-    const clientId = import.meta.env.AUTH0_CLIENT;
-    const redirectUri = import.meta.env.AUTH0_REDIRECT_URL;
+    const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+    const clientId = import.meta.env.VITE_AUTH0_CLIENT;
+    const redirectUri = import.meta.env.VITE_AUTH0_REDIRECT_URL;
 
 
     if(!domain || !clientId || !redirectUri){
