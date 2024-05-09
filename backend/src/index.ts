@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv/config';
+import 'dotenv/config';
 import mongoose from 'mongoose';
 
 const port = 3000;
