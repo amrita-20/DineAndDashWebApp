@@ -1,17 +1,22 @@
 import { useState } from "react";
 
+import { useAuth0 } from "@auth0/auth0-react";
+import {Link} from "react-router-dom";
 
 import HomeIcon from "../assets/home_FILL0_wght400_GRAD0_opsz24.svg";
 import SearchIcon from "../assets/search_FILL0_wght400_GRAD0_opsz24.svg";
 import AccountIcon from "../assets/account_circle_FILL0_wght400_GRAD0_opsz24.svg";
 import CartIcon from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
-import {Link} from "react-router-dom";
 
 import "../css/NavBar.css";
-import { useAuth0 } from "@auth0/auth0-react";
 
 function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // TODO: rest of the logic
+  }
 
   const {loginWithRedirect} = useAuth0();
   return (
@@ -22,6 +27,21 @@ function NavBar() {
         </Link>
         <h1 className="logo-title">Dish&Dash</h1>
       </div>
+
+      <div className="search-container">
+        <form className="form-search" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className="search"
+            placeholder="Search menu..."
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button className="button-search" type="submit">
+            <img className="search-icon" src={SearchIcon} alt="search" />
+          </button>
+        </form>
+      </div>
+
       <div className="control-container">
         <nav className="dropmenu" onMouseLeave={() => setShowMenu(false)}>
           <button
@@ -35,7 +55,15 @@ function NavBar() {
             />
           </button>
 
-          <button onClick={async () => await loginWithRedirect()}>Login</button>
+          <ul className={`menu-list ${showMenu ? "show" : ""}`}>
+            <li className="menu-item">Menu</li>
+            <li className="menu-item">Orders</li>
+            <li className="menu-item">Profile</li>
+            <li className="menu-item">Logout</li>
+            <button onClick={async () => await loginWithRedirect()}>
+              Login
+            </button>
+          </ul>
         </nav>
       </div>
     </header>
