@@ -1,12 +1,35 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+import mongoose, { Document, Schema } from 'mongoose';
 
-const userSchema = new Schema ({
+interface Address {
+    road: string;
+    postCode: number;
+    city: string;
+    state: string;
+    country: string;
+}
+
+interface User extends Document {
+    username: string;
+    email: string;
+    phone: number;
+    addresses?: Address[];
+}
+
+const addressSchema = new Schema({
+  address: {
+    road: String,
+    postCode: Number,
+    city: String,
+    state: String,
+    country: String
+  }
+})
+
+const userSchema: Schema = new Schema ({
   username: { type: String, required: true },
-  hashedPassword: { type: String, required: true },
-  email: {type: [String], required: true},
-  phone: {type: [Number], required: true},
-  address: {type: [String] }
+  email: {type: String, required: true},
+  phone: Number,
+  addresses: [addressSchema],
 });
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model<User>("User", userSchema);
