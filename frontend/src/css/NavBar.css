@@ -13,20 +13,16 @@ header {
 }
 
 .logo-container {
-    grid-column: 3 span;
+    grid-column: 1 span;
 
     display: flex;
     justify-content: space-evenly;
-}
 
-.search-container {
-    grid-column: 6 span;
-
-    display: flex;
-    justify-content: center;
+    margin-left: 1rem;
 }
 
 .logo-title {
+    display: none;
     margin: 0;
 }
 
@@ -41,6 +37,13 @@ header {
 
 .button-home, .button-search, .button-cart, .button-menu:hover {
     cursor: pointer;
+}
+
+.search-container {
+    grid-column: 10 span;
+
+    display: flex;
+    justify-content: center;
 }
 
 .form-search {
@@ -61,7 +64,7 @@ header {
 }
 
 .control-container {
-    grid-column: 3 span;
+    grid-column: 1 span;
 
     display: flex;
     justify-content: space-evenly;
@@ -78,6 +81,10 @@ header {
 
 .dropmenu {
     position: relative;
+}
+
+.button-menu {
+    margin-right: 1rem;
 }
 
 .menu-list {
@@ -105,4 +112,24 @@ header {
 .menu-item:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+
+@media (min-width: 40rem) {
+    .logo-container {
+        grid-column: 3 span ;
+    }
+
+    .search-container {
+        grid-column: 6 span;
+    }
+
+    .control-container {
+        grid-column: 3 span;
+    }
+
+
+    .logo-title {
+        display: initial;
+    }
 }
