@@ -8,11 +8,16 @@ interface Address {
     country: string;
 }
 
-interface User extends Document {
+interface Cart {
+  [dishId: string]: number;
+}
+
+export interface User extends Document {
     username: string;
     email: string;
     phone: number;
     addresses?: Address[];
+    cart?: Cart;
 }
 
 const addressSchema = new Schema({
@@ -30,6 +35,7 @@ const userSchema: Schema = new Schema<User>({
   email: {type: String, required: true},
   phone: Number,
   addresses: [addressSchema],
+  cart: { type: Object, default: {}},
 });
 
 export default mongoose.model<User>("User", userSchema);
