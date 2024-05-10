@@ -16,7 +16,7 @@ interface Address {
     country: string;
 }
 
-async function addUser(newUser: NewUser) {
+export async function addUser(newUser: NewUser) {
   // Check if user exists
   const { username, email } = newUser;
   const existinguser = await User.exists({ $or: [{ username }, { email }] });
@@ -67,6 +67,8 @@ const testNewUser2 = {
         },
     ],
 };
-
-addUser(testNewUser1);
-addUser(testNewUser2);
+  
+export function runUserTest() { 
+  addUser(testNewUser1);
+  addUser(testNewUser2);
+}

@@ -13,7 +13,7 @@ interface Order extends Document {
     amount: number;
 }
 
-const orderItemSchema: Schema = new Schema({
+const orderItemSchema: Schema = new Schema<Order>({
     productId: {type: String, required: true},
     quantity: {type: Number, required: true}
 })

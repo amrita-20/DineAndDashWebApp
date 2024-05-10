@@ -25,7 +25,7 @@ const addressSchema = new Schema({
   }
 })
 
-const userSchema: Schema = new Schema ({
+const userSchema: Schema = new Schema<User>({
   username: { type: String, required: true },
   email: {type: String, required: true},
   phone: Number,
