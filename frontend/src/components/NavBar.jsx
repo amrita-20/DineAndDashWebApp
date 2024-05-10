@@ -18,7 +18,7 @@ function NavBar() {
     // TODO: rest of the logic
   }
 
-  const {loginWithRedirect} = useAuth0();
+  const {loginWithRedirect, isAuthenticated, user, logout} = useAuth0();
   return (
     <header>
       <div className="logo-container">
@@ -41,8 +41,9 @@ function NavBar() {
           </button>
         </form>
       </div>
-
+    
       <div className="control-container">
+        {isAuthenticated ? 
         <nav className="dropmenu" onMouseLeave={() => setShowMenu(false)}>
           <button
             className="button-menu"
@@ -53,18 +54,27 @@ function NavBar() {
               src={AccountIcon}
               alt="control-center"
             />
+            <span>{user?.email}</span>
           </button>
+         
 
           <ul className={`menu-list ${showMenu ? "show" : ""}`}>
-            <li className="menu-item">Menu</li>
-            <li className="menu-item">Orders</li>
-            <li className="menu-item">Profile</li>
-            <li className="menu-item">Logout</li>
-            <button onClick={async () => await loginWithRedirect()}>
-              Login
-            </button>
+            <li className="menu-item">
+                <Link>Menu</Link>
+            </li>
+            <li className="menu-item">
+                <Link>Orders</Link>
+            </li>
+            <li className="menu-item">
+                <Link to="/user-profile">Profile</Link>
+            </li>
+            <li className="menu-item">
+                <Link onClick={() => logout()}>Logout</Link>
+            </li>
           </ul>
-        </nav>
+        </nav> : <button onClick={async () => await loginWithRedirect()}>
+              Login
+            </button>}
       </div>
     </header>
   );
