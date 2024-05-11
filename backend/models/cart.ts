@@ -1,10 +1,11 @@
 import User from "../schemas/User";
-import Dish, { DishDocument } from "../schemas/Dish";
+import Dish from "../schemas/Dish";
+import { getDish } from "./dishes";
 
 async function getCartFromUser(userId: string) {
   try {
     const userData = await User.findOne({ _id: userId });
-    return userData?.cart || {};
+    return userData?.cart;
   } catch (err) {
     console.log(err);
     throw err;
@@ -21,24 +22,20 @@ async function sendToOrder(userId: string) {
   }
 }
 
-// Cart has to be an array of arrays embedded in users
-// [
-//   [dishId, quanity, subtotal],
-
-// ]
-
-
-
 async function updateCart(userId: string, dishId: string, operator: string) {
   try {
     // Retrieve dish object
-    const dish = await Dish.findOne({ _id: dishId });
-    const dishParam = dish || {};
-
+    const dish = (await Dish.findOne({ _id: dishId })) || {};
     // Get user cart
-    const userCart = await getCartFromUser(userId);
+    const userCart = (await getCartFromUser(userId)) || []; // To check
     // Update cart
-    const updatedCart = await modifyQuantity(dishId, dishParam, operator, userCart);
+    const updatedCart = await modifyQuantity(
+      userId,
+      dishId,
+      dish,
+      operator,
+      userCart
+    );
     // Update user in DB
     const updateResult = await User.updateOne(
       { _id: userId },
@@ -60,45 +57,53 @@ const dishId2 = "663d80b7f6597992c77971d3";
 // const operator = "+"
 
 export function runCartTest() {
-    updateCart(userId1, dishId1, operator)
-    updateCart(userId2, dishId2, operator)
+  updateCart(userId1, dishId1, operator);
+  updateCart(userId2, dishId2, operator);
 }
 
 async function modifyQuantity(
+  userId: string,
   dishId: string,
   dish: object,
   operator: string,
-  userCart: object,
+  userCart
 ) {
-  const updatedCart = { ...userCart };
-  let quantity: number = 0;
-
-  if (operator === "+") {
-    if (!updatedCart[dishId]) {
-      quantity = 1;
-      updatedCart[dishId] = { ...dish, quantity };
+  // now cart is a mongoDB document embedding dish object, we can easily find and update
+  try {
+    if (operator === "+") {
+      await User.updateOne(
+        { _id: userId, "cart.dish": dishId },
+        {
+          $inc: {
+            "cart.$.quantity": 1,
+            "cart.$.subtotal": {
+              $add: ["$cart.dish.price", "$cart.$.subtotal"],
+            },
+          },
+        }
+      );
     } else {
-      quantity = updatedCart[dishId].quantity + 1;
-      updatedCart[dishId].quantity = quantity;
+      await User.updateOne(
+        { _id: userId, "cart.dish": dishId },
+        {
+          $inc: {
+            "cart.$.quantity": -1,
+            "cart.$.subtotal": {
+              $subtract: ["$cart.$.subtotal", "$cart.dish.price"],
+            },
+          },
+        }
+      );
     }
-  } else if (updatedCart[dishId] && updatedCart[dishId].quantity > 0) {
-    quantity = updatedCart[dishId].quantity - 1;
-    updatedCart[dishId].quantity = quantity;
+  } catch (err) {
+    console.log(err)
+    throw err;
   }
-
-  const dishQuantity = updatedCart[dishId].quantity;
-  const dishPrice = parseFloat(dish.price);
-  const subtotal = dishQuantity * dishPrice;
-
-  // subtotal. Cart is array of objects
-  updatedCart[dishId] = { ...dish, quantity, subtotal };
-  // Put this to an array
-
-
-  return updatedCart;
 }
 
-function calculateTotal(userCart: Cart): string {
+
+
+function calculateTotal(userCart) {
   return Object.keys(userCart)
     .reduce((total, key) => total + userCart[key].subtotal, 0)
     .toFixed(2);
