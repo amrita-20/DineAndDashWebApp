@@ -1,18 +1,24 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-interface Address {
+type Address = {
   road: string;
   postCode: number;
   city: string;
   state: string;
   country: string;
-}
+};
 
-export interface Cart {
-  [dishId: string]: number;
-}
+type Cart = [[dishId: string, quantity: number, subtotal: number]]; // an array of arrays
 
-const addressSchema: Schema<Address> = new Schema({
+type User = {
+  username: string;
+  email: string;
+  phone: number;
+  address?: Address[];
+  cart?: Cart[];
+};
+
+const addressSchema = new Schema<Address>({
   road: String,
   postCode: Number,
   city: String,
@@ -20,20 +26,15 @@ const addressSchema: Schema<Address> = new Schema({
   country: String,
 });
 
-export interface UserDocument extends Document {
-  username: string;
-  email: string;
-  phone: number;
-  address?: Address[];
-  cart?: Cart;
-}
-
-const userSchema: Schema<UserDocument> = new Schema({
+const userSchema = new Schema<User>({
   username: { type: String, required: true },
   email: { type: String, required: true },
   phone: Number,
   address: [addressSchema],
-  cart: { type: Object, default: {} },
+  cart: {
+    type: [[String, Number, Number]],
+    default: [[]]
+  },
 });
 
-export default mongoose.model<UserDocument>("User", userSchema);
+export default mongoose.model("User", userSchema);

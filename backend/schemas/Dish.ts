@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-export interface Dish extends Document {
+type Dish = {
   name: String;
   description: String;
   price: Number;
@@ -43,4 +43,4 @@ const dishSchema = new Schema<Dish>({
   imagePath: { type: String, required: true },
 });
 
-export default mongoose.model<Dish>("Dish", dishSchema);
+export default mongoose.model("Dish", dishSchema);

@@ -1,10 +1,10 @@
-import User, { Cart } from "../schemas/User";
-import Dish from "../schemas/Dish";
+import User from "../schemas/User";
+import Dish, { DishDocument } from "../schemas/Dish";
 
 async function getCartFromUser(userId: string) {
   try {
     const userData = await User.findOne({ _id: userId });
-    return userData?.cart || null;
+    return userData?.cart || {};
   } catch (err) {
     console.log(err);
     throw err;
@@ -14,21 +14,31 @@ async function getCartFromUser(userId: string) {
 async function sendToOrder(userId: string) {
   try {
     const userCart = await getCartFromUser(userId);
-    const total: string = calculateTotal(userCart);
+    const total = calculateTotal(userCart);
     return [userCart, total];
   } catch (err) {
     console.log(err);
   }
 }
 
+// Cart has to be an array of arrays embedded in users
+// [
+//   [dishId, quanity, subtotal],
+
+// ]
+
+
+
 async function updateCart(userId: string, dishId: string, operator: string) {
   try {
     // Retrieve dish object
     const dish = await Dish.findOne({ _id: dishId });
+    const dishParam = dish || {};
+
     // Get user cart
     const userCart = await getCartFromUser(userId);
     // Update cart
-    const updatedCart = await modifyQuantity(dishId, dish, operator, userCart);
+    const updatedCart = await modifyQuantity(dishId, dishParam, operator, userCart);
     // Update user in DB
     const updateResult = await User.updateOne(
       { _id: userId },
@@ -56,12 +66,12 @@ export function runCartTest() {
 
 async function modifyQuantity(
   dishId: string,
-  dish,
+  dish: object,
   operator: string,
-  userCart
+  userCart: object,
 ) {
   const updatedCart = { ...userCart };
-  let quantity = 0;
+  let quantity: number = 0;
 
   if (operator === "+") {
     if (!updatedCart[dishId]) {
@@ -79,12 +89,16 @@ async function modifyQuantity(
   const dishQuantity = updatedCart[dishId].quantity;
   const dishPrice = parseFloat(dish.price);
   const subtotal = dishQuantity * dishPrice;
+
+  // subtotal. Cart is array of objects
   updatedCart[dishId] = { ...dish, quantity, subtotal };
+  // Put this to an array
+
 
   return updatedCart;
 }
 
-function calculateTotal(userCart) {
+function calculateTotal(userCart: Cart): string {
   return Object.keys(userCart)
     .reduce((total, key) => total + userCart[key].subtotal, 0)
     .toFixed(2);
