@@ -1,11 +1,11 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-interface OrderItem {
+type OrderItem = {
     productId: string;
     quantity: number;
 }
 
-interface Order extends Document {
+type Order =  {
     userId: string;
     orderItems: OrderItem[];
     orderTime: Date;
@@ -13,7 +13,7 @@ interface Order extends Document {
     amount: number;
 }
 
-const orderItemSchema: Schema = new Schema({
+const orderItemSchema: Schema = new Schema<OrderItem>({
     productId: {type: String, required: true},
     quantity: {type: Number, required: true}
 })
@@ -26,4 +26,4 @@ const orderSchema: Schema= new Schema<Order>({
   amount: {type: Number, required: true},
 });
 
-export default mongoose.model<Order>("Order", orderSchema);
+export default mongoose.model("Order", orderSchema);
