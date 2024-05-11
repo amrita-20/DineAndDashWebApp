@@ -3,6 +3,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import { getMenu } from '../models/dishes';
+import { runCartTest } from '../models/cart';
 
 
 const port = 3000;
@@ -14,9 +15,14 @@ app.use(express.json());
 app.use(cors());
 
 
+runCartTest()
 
+//TEST
+app.post('/cart', async (req: Request, res: Response) => {
 
-app.get('/test', async (req: Request, res: Response) => {
+})
+
+app.get('/menu', async (req: Request, res: Response) => {
     const menu = await getMenu()
     res.json({ menu });
 })
