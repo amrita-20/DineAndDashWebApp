@@ -1,5 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
+import Dish from "./Dish";
+
 type Address = {
   road: string;
   postCode: number;
@@ -8,7 +10,11 @@ type Address = {
   country: string;
 };
 
-type Cart = [[dishId: string, quantity: number, subtotal: number]]; // an array of arrays
+type Cart = {
+  dish: typeof Dish,
+  quantity: number,
+  subtotal: number
+}; 
 
 type User = {
   username: string;
@@ -26,15 +32,18 @@ const addressSchema = new Schema<Address>({
   country: String,
 });
 
+const cartSchema = new Schema<Cart>({
+  dish: Dish,
+  quantity: { type: Number, default: 0 },
+  subtotal: { type: Number, default: 0 },
+});
+
 const userSchema = new Schema<User>({
   username: { type: String, required: true },
   email: { type: String, required: true },
   phone: Number,
   address: [addressSchema],
-  cart: {
-    type: [[String, Number, Number]],
-    default: [[]]
-  },
+  cart: [cartSchema]
 });
 
 export default mongoose.model("User", userSchema);

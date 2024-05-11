@@ -382,6 +382,6 @@ export async function getMenu() {
 }
 
 export async function getDish(dishId: string) {
-  const dish = await Dish.findOne({ dishId })
+  const dish = await Dish.findOne({ _id: dishId })
   return dish;
 }
