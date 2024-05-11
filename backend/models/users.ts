@@ -1,22 +1,6 @@
-import User from "../schemas/User"
+import User, { UserDocument } from "../schemas/User";
 
-interface NewUser {
-    username: string,
-    password: string,
-    email: string,
-    phone: number,
-    address: Address | Address[]
-}
-
-interface Address {
-    road: string;
-    postCode: number;
-    city: string;
-    state: string;
-    country: string;
-}
-
-export async function addUser(newUser: NewUser) {
+export async function addUser(newUser: UserDocument) {
   // Check if user exists
   const { username, email } = newUser;
   const existinguser = await User.exists({ $or: [{ username }, { email }] });
@@ -24,51 +8,51 @@ export async function addUser(newUser: NewUser) {
   if (existinguser) {
     return false;
   }
-  
+
   // Create new user in mongoDB
   const addResult = await User.create(newUser);
   console.log("Add result:", addResult);
   return !!addResult._id;
 }
 
-const testNewUser1 = {
+const testNewUser1 = new User({
   username: "Bob",
-  password: "BobPassword",
   email: "Bob@gmail.com",
   phone: 111111111,
-  address: {
-    road: "Park Avenue",
-    postCode: 18,
-    city: "New York",
-    state: "NY",
-    country: "USA"
-  },
-};
+  address: [
+    {
+      road: "Park Avenue",
+      postCode: 18,
+      city: "New York",
+      state: "NY",
+      country: "USA",
+    },
+  ],
+});
 
-const testNewUser2 = {
+const testNewUser2 = new User({
   username: "Alice",
-  password: "AlicePassword",
   email: "alice@gmail.com",
   phone: 123456789,
   address: [
-        {
-            road: "North Street",
-            postCode: 95112,
-            city: "San Jose",
-            state: "CA",
-            country: "USA",
-        },
-        {
-            road: "South Street",
-            postCode: 95113,
-            city: "San Jose",
-            state: "CA",
-            country: "USA",
-        },
-    ],
-};
-  
-export function runUserTest() { 
+    {
+      road: "North Street",
+      postCode: 95112,
+      city: "San Jose",
+      state: "CA",
+      country: "USA",
+    },
+    {
+      road: "South Street",
+      postCode: 95113,
+      city: "San Jose",
+      state: "CA",
+      country: "USA",
+    },
+  ],
+});
+
+export function runUserTest() {
   addUser(testNewUser1);
   addUser(testNewUser2);
 }

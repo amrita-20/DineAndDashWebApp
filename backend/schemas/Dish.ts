@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-interface Dish extends Document {
+export interface Dish extends Document {
   name: String;
   description: String;
   price: Number;
