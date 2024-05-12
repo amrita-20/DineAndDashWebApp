@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-import Dish from "./Dish";
+import { dishSchema } from "./Dish";
 
 type Address = {
   road: string;
@@ -10,8 +10,8 @@ type Address = {
   country: string;
 };
 
-type Cart = {
-  dish: typeof Dish,
+export type Cart = {
+  dish: typeof dishSchema,
   quantity: number,
   subtotal: number
 }; 
@@ -33,7 +33,7 @@ const addressSchema = new Schema<Address>({
 });
 
 const cartSchema = new Schema<Cart>({
-  dish: Dish,
+  dish: dishSchema,
   quantity: { type: Number, default: 0 },
   subtotal: { type: Number, default: 0 },
 });

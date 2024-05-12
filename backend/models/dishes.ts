@@ -1,13 +1,5 @@
 import Dish from "../schemas/Dish";
 
-interface Dish {
-  name: string;
-  description: string;
-  price: number;
-  dishType: string;
-  imagePath: string;
-}
-
 async function addDish(
   name: string,
   description: string,
