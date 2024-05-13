@@ -2,7 +2,6 @@ import User from "../schemas/User"
 
 interface NewUser {
     username: string,
-    password: string,
     email: string,
     phone: number,
     address: Address | Address[]

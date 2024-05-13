@@ -1,0 +1,61 @@
+.main-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.form-register {
+    background-color: white;
+        
+    padding: 2rem;
+    margin-top: 5rem;
+
+    width: 20rem;
+
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px 5px rgb(231, 231, 231);
+}
+
+.form-header {
+    margin: 0;
+    margin-bottom: 2rem;
+}
+
+.form-register input {
+    height: 2rem;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 1rem;
+}
+.button-update {
+    font-size: 1rem;
+    color: white;
+
+    background-color: black;
+
+    border-radius: 5px;
+
+    padding: 0.3rem;
+    margin-bottom: 0.5rem;
+
+    width: 100%;
+}
+
+.button-update:hover {
+    cursor: pointer;
+}
+
+.button-update:active {
+    transform: translateY(1px);
+    transition: transform 0.1s ease;
+    background-color: #ffcc00;
+}
+
+.error-message {
+    color: red;
+}
+
+.success-message{
+    color: green;
+}
