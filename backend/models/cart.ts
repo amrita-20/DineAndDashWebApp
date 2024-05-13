@@ -31,7 +31,7 @@ async function updateCart(userId: string, dishId: string, operator: string) {
   try {
     // const cart = await User.findOne({ _id: userIdObj, "cart.dish": dishIdObj });
     const user = await User.findOne({ _id: new ObjectId(userId) });
-    if (!user) {
+    if (!user ||!user.cart) {
       throw new Error("User or dish not found in the cart.");
     }
 
