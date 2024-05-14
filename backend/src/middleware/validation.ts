@@ -29,6 +29,7 @@ const validateAddress: CustomValidator = (value, { req }) => {
     }
     
     return true; 
+}
   
   export const validateMyUserRequest = [
     body("name").isString().notEmpty().withMessage("Name must be a string"),
