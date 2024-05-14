@@ -1,30 +1,7 @@
 import mongoose, { Schema } from "mongoose";
-
 import { dishSchema } from "./Dish";
 
-type Address = {
-  road: string;
-  postCode: number;
-  city: string;
-  state: string;
-  country: string;
-};
-
-export type Cart = {
-  dish: typeof dishSchema,
-  quantity: number,
-  subtotal: number
-}; 
-
-type User = {
-  username: string;
-  email: string;
-  phone: number;
-  address?: Address[];
-  cart?: Cart[];
-};
-
-const addressSchema = new Schema<Address>({
+const addressSchema = new Schema({
   road: String,
   postCode: Number,
   city: String,
@@ -32,13 +9,13 @@ const addressSchema = new Schema<Address>({
   country: String,
 });
 
-const cartSchema = new Schema<Cart>({
+const cartSchema = new Schema({
   dish: dishSchema,
   quantity: { type: Number, default: 0 },
   subtotal: { type: Number, default: 0 },
 });
 
-const userSchema = new Schema<User>({
+const userSchema = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: true },
   phone: Number,
