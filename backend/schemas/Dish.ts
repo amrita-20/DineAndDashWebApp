@@ -1,25 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-type Dish = {
-  name: String;
-  description: String;
-  price: Number;
-  dishType:
-    | "pizza"
-    | "dessert"
-    | "rice"
-    | "noodles"
-    | "paella"
-    | "steak"
-    | "salad"
-    | "appetizer"
-    | "wine"
-    | "cheese"
-    | "seefood";
-  imagePath: String;
-}
-
-export const dishSchema = new Schema<Dish>({
+export const dishSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
