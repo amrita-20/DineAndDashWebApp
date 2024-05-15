@@ -1,4 +1,4 @@
-import User from "../schemas/User"
+import User from "./User"
 
 interface NewUser {
     username: string,
