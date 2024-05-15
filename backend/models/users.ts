@@ -1,6 +1,6 @@
-import User, { UserDocument } from "../schemas/User";
+import User from "../schemas/User";
 
-export async function addUser(newUser: UserDocument) {
+export async function addUser(newUser) {
   // Check if user exists
   const { username, email } = newUser;
   const existinguser = await User.exists({ $or: [{ username }, { email }] });
