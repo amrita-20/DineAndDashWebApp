@@ -1,5 +1,5 @@
-import Order from "../schemas/Order";
-import User from "../schemas/User";
+import Order from "./Order";
+import User from "./User";
 
 // dump all in a user cart
 export async function placeOrder(userId: string) {
