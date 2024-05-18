@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import userRoute from './routes/UserRoute';
 import menuRoute from "./routes/MenuRoute"
 
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 console.log("MongoDB URI:", process.env.MONGODB_URI);
 mongoose.connect(process.env.MONGODB_URI as string).then(() => console.log("DB connection done!"));
 
@@ -21,6 +21,6 @@ app.use('/api/v1/menu', menuRoute)
 //     res.json({ message: "Testing" });
 // })
 
-app.listen(port, () => {
+app.listen(PORT, () => {
     console.log("server is running");
 })

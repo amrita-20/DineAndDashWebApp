@@ -12,6 +12,6 @@ function chainPromise(promise) {
 
 // Get menu
 export function fetchMenu() {
-  const fetched = fetch("/api/v1/menu");
+  const fetched = fetch("http://localhost:3000/api/v1/menu");
   return chainPromise(fetched);
 }
