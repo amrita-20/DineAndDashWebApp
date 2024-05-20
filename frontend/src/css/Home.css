@@ -5,16 +5,52 @@
     height: 100vh;
 }
 
-.sidebar-menu {
+.show-menu-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button-show-menu {
+    margin: 1rem 1rem 0rem 1rem;
+    border: none;
+}
+
+.button-show-menu:hover {
+    cursor: pointer;
+}
+
+.hamburger-menu {
     grid-column: 2 span;
 
     display: flex;
     flex-direction: column;
 
     background-color: rgb(62, 62, 62);
+
+    height: 0;
+    width: 100%;
+
+    opacity: 0.9;
+
+    visibility: hidden;
+    position: absolute;
+    rotate: x 90deg;
+    transform-origin: top;
 }
 
-.button-sidebar {
+.hamburger-menu.open {
+    height: auto;
+    visibility: initial;
+    rotate: x 0deg;
+}
+
+@media(prefers-reduced-motion: no-preference) {
+    .hamburger-menu {
+        transition-duration: 0.1s;
+    }
+}
+
+.button-menu {
     padding: 1rem;
 
     background: none;
@@ -22,10 +58,10 @@
     border: none;
 
     color: white;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
-.button-sidebar:hover {
+.button-menu:hover {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -34,10 +70,11 @@
     grid-column: 10 span;
 
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     grid-gap: 2rem;
 
-    margin: 1rem 2rem;
+    margin: 1rem;
+    padding: 0;
 }
 
 .card {
@@ -56,7 +93,7 @@
     height: 100%;
     object-fit: cover;
 
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 .cart-bottom {
@@ -84,4 +121,24 @@
     transform: translateY(1px);
     transition: transform 0.1s ease;
     background-color: #ffcc00;
+}
+
+@media (min-width: 44rem) {
+    .button-show-menu {
+        display: none;
+    }
+
+    .hamburger-menu {
+        flex-direction: row;
+        justify-content: center;
+
+        height: auto;
+        visibility: initial;
+        position: relative;
+        rotate: x 0deg;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
