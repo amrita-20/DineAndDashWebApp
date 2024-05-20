@@ -1,0 +1,87 @@
+.page-menu-wrapper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+
+    height: 100vh;
+}
+
+.sidebar-menu {
+    grid-column: 2 span;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(62, 62, 62);
+}
+
+.button-sidebar {
+    padding: 1rem;
+
+    background: none;
+
+    border: none;
+
+    color: white;
+    font-size: 1rem;
+}
+
+.button-sidebar:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.cards {
+    grid-column: 10 span;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+
+    margin: 1rem 2rem;
+}
+
+.card {
+    grid-column: 1 span;
+    list-style: none;
+}
+
+.card-image-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    border-radius: 15px;
+}
+
+.cart-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button-add-to-cart {
+    font-size: 1rem;
+    color: white;
+
+    background-color: black;
+
+    border-radius: 5px;
+
+    padding: 0.3rem;
+}
+
+.button-add-to-cart:hover {
+    cursor: pointer;
+}
+
+.button-add-to-cart:active {
+    transform: translateY(1px);
+    transition: transform 0.1s ease;
+    background-color: #ffcc00;
+}
