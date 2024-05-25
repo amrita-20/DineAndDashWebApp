@@ -11,6 +11,8 @@ function reducer(state, action) {
                 ...state,
                 menu: action.payload
             }
+        default: 
+            return state;
     }
 }
 
