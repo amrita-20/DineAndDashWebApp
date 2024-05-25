@@ -60,7 +60,7 @@ function NavBar() {
 
           <ul className={`menu-list ${showMenu ? "show" : ""}`}>
             <li className="menu-item">
-                <Link>Menu</Link>
+                <Link to="/menu">Menu</Link>
             </li>
             <li className="menu-item">
                 <Link>Orders</Link>
