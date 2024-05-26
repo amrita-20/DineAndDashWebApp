@@ -2,16 +2,17 @@ import { useEffect, useReducer, useState } from "react";
 
 import { ACTIONS } from "../constant";
 import reducer, { initialState } from "../reducer";
-import Menu from "../assets/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
-import "../css/Home.css";
 import { useGetMenuDetails } from "../services/MenuServices";
+
 import Error from "./Error";
+
+import Menu from "../assets/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+import "../css/MenuPage.css";
 
 function MenuPage() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [showMenu, setShowMenu] = useState(false);
-
-  const {menuDetails, isLoading, error} = useGetMenuDetails();
+  const { menuDetails, isLoading, error } = useGetMenuDetails();
 
   function handleOnclick(e) {
     setFilter(e.target.name);
@@ -27,17 +28,16 @@ function MenuPage() {
     }
   }, [isLoading, error]);
 
-  if(isLoading){
-    return <span>Loading ....</span>
+  if (isLoading) {
+    return <span>Loading ....</span>;
   }
-  if(!menuDetails || error){
-    return<span>Unable to load user details</span>
-  } 
-  
+  if (!menuDetails || error) {
+    return <span>Unable to load user details</span>;
+  }
+
   return (
     <>
-  
-    <Error errorMessage={error} />
+      <Error errorMessage={error} />
       <div className="show-menu-button-container">
         <button
           className="button-show-menu"
