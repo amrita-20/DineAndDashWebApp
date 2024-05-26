@@ -54,7 +54,7 @@ function NavBar() {
               src={AccountIcon}
               alt="control-center"
             />
-            <span>{user?.email}</span>
+            {/* <span>{user?.email}</span> */}
           </button>
          
 
