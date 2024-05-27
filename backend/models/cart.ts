@@ -81,9 +81,12 @@ const dishId2 = "663d80b7f6597992c77971d3";
 
 const operator = "-";
 
-export function runCartTest() {
+// export function runCartTest() {
+//   updateCart(userId2, dishId2, operator);
+// }
+
   updateCart(userId2, dishId2, operator);
-}
+
 
 // function calculateTotal(userCart: Cart) {
 //   let total = 0;
