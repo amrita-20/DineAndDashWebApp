@@ -30,12 +30,12 @@ header {
     width: 2rem;
 }
 
-.button-home, .button-search, .button-cart, .button-menu {
+.button-home, .button-search, .button-cart, .button-dropmenu {
     background: none;
     border: none;
 }
 
-.button-home, .button-search, .button-cart, .button-menu:hover {
+.button-home, .button-search, .button-cart, .button-dropmenu:hover {
     cursor: pointer;
 }
 
@@ -77,13 +77,16 @@ header {
     color: white;
 
     font-size: 1rem;
+
+    display: flex;
+    flex-direction: row;
 }
 
 .dropmenu {
     position: relative;
 }
 
-.button-menu {
+.button-dropmenu {
     margin-right: 1rem;
 }
 
@@ -127,7 +130,6 @@ header {
     .control-container {
         grid-column: 3 span;
     }
-
 
     .logo-title {
         display: initial;
