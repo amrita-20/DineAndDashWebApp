@@ -18,6 +18,12 @@ function NavBar() {
     // TODO: rest of the logic
   }
 
+  function handleClickCart() {
+    // navigate to cart page
+  }
+
+  const cartItems = 3; // TODO: replace with dynamic number. just count cart array length
+
   const {loginWithRedirect, isAuthenticated, user, logout} = useAuth0();
   return (
     <header>
@@ -41,40 +47,44 @@ function NavBar() {
           </button>
         </form>
       </div>
-    
-      <div className="control-container">
-        {isAuthenticated ? 
-        <nav className="dropmenu" onMouseLeave={() => setShowMenu(false)}>
-          <button
-            className="button-menu"
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            <img
-              className="account-icon"
-              src={AccountIcon}
-              alt="control-center"
-            />
-            <span>{user?.email}</span>
-          </button>
-         
 
-          <ul className={`menu-list ${showMenu ? "show" : ""}`}>
-            <li className="menu-item">
+      <div className="control-container">
+        <button className="button-cart" type="button" onClick={handleClickCart}>
+          <img className="cart-icon" src={CartIcon} alt="cart" />
+          <span className="cart-count">{cartItems}</span>
+        </button>
+        {isAuthenticated ? (
+          <nav className="dropmenu" onMouseLeave={() => setShowMenu(false)}>
+            <button
+              className="button-dropmenu"
+              onClick={() => setShowMenu(!showMenu)}
+            >
+              <img
+                className="account-icon"
+                src={AccountIcon}
+                alt="control-center"
+              />
+              {/* <span>{user?.email}</span> */}
+            </button>
+
+            <ul className={`menu-list ${showMenu ? "show" : ""}`}>
+              <li className="menu-item">
                 <Link to="/menu">Menu</Link>
-            </li>
-            <li className="menu-item">
+              </li>
+              <li className="menu-item">
                 <Link>Orders</Link>
-            </li>
-            <li className="menu-item">
+              </li>
+              <li className="menu-item">
                 <Link to="/user-profile">Profile</Link>
-            </li>
-            <li className="menu-item">
+              </li>
+              <li className="menu-item">
                 <Link onClick={() => logout()}>Logout</Link>
-            </li>
-          </ul>
-        </nav> : <button onClick={async () => await loginWithRedirect()}>
-              Login
-            </button>}
+              </li>
+            </ul>
+          </nav>
+        ) : (
+          <button onClick={async () => await loginWithRedirect()}>Login</button>
+        )}
       </div>
     </header>
   );
