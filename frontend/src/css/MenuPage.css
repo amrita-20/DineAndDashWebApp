@@ -55,7 +55,7 @@
 }
 
 .button-menu {
-    padding: 1rem;
+    padding: 1rem 0.5rem;
 
     background: none;
 
@@ -127,7 +127,7 @@
     background-color: #ffcc00;
 }
 
-@media (min-width: 44rem) {
+@media (min-width: 50rem) {
     .button-show-menu {
         display: none;
     }
@@ -135,6 +135,7 @@
     .hamburger-menu {
         flex-direction: row;
         justify-content: center;
+        flex-wrap: wrap;
 
         height: auto;
         visibility: initial;
