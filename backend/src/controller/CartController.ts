@@ -1,33 +1,37 @@
-import User from "../models/User";
-import Dish from "../models/Dish";
+import mongoose from "mongoose";
 
+import User, { cartSchema } from "../models/User";
+import Dish from "../models/Dish";
 
 //////////////////////APIs///////////////////////////
 
-
 //////////////////////Functions//////////////////////
+export async function getUserCart(userId: string) {
+  try {
+    const userData = await User.findById(userId);
+    return userData?.cart;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
 
-// async function getCartFromUser(userId: string) {
-//   try {
-//     const userData = await User.findOne({ _id: userId });
-//     return userData?.cart;
-//   } catch (err) {
-//     console.log(err);
-//     throw err;
-//   }
-// }
+export async function sendToOrder(userId: string) {
+  try {
+    const userCart = await getUserCart(userId);
+    const total = calculateTotal(userId);
+    console.log([userCart, total])
+    return [userCart, total];
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-// async function sendToOrder(userId: string) {
-//   try {
-//     const userCart = await getCartFromUser(userId);
-//     // const total = calculateTotal(userCart);
-//     return [userCart, total];
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
-
-export async function updateCart(userId: string, dishId: string, operator: string) {
+export async function updateCart(
+  userId: string,
+  dishId: string,
+  operator: string
+) {
   try {
     // Get user
     const user = await User.findById(userId);
@@ -75,16 +79,16 @@ export async function updateCart(userId: string, dishId: string, operator: strin
   }
 }
 
+export async function calculateTotal(userId: string) {
+  const userCart = await getUserCart(userId);
+  if (!userCart) {
+    return 0;
+  }
 
+  let total = 0;
+  for (const cartItem of userCart) {
+    total += cartItem.subtotal;
+  }
 
-
-// function calculateTotal(userCart: Cart) {
-//   let total = 0;
-
-//   for (const cartItem of userCart) {
-//     total += cartItem.subtotal;
-//   }
-
-//   return total.toFixed(2);
-// }
-
+  return total.toFixed(2);
+}

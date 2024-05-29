@@ -5,7 +5,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import userRoute from './routes/UserRoute';
 //import { getMenu } from '../models/dishes';
-import { updateCart } from './controller/CartController';
+import { updateCart, getUserCart, calculateTotal, sendToOrder } from './controller/CartController';
 
 
 const port = 3000;
@@ -27,7 +27,10 @@ app.use('/api/v1/user/profile', userRoute);
 const userId2 = "663d6e6c7643576b26aa5499"; // Alice
 const dishId2 = "663d80b7f6597992c77971d3";
 const operator = "+";
-updateCart(userId2, dishId2, operator);
+// updateCart(userId2, dishId2, operator);
+// getUserCart(userId2)
+// calculateTotal(userId2)
+// sendToOrder(userId2)
 
 app.listen(port, () => {
     console.log("server is running");
