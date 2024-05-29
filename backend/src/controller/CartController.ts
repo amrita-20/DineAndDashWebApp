@@ -27,7 +27,7 @@ import Dish from "../models/Dish";
 //   }
 // }
 
-async function updateCart(userId: string, dishId: string, operator: string) {
+export async function updateCart(userId: string, dishId: string, operator: string) {
   try {
     // Get user
     const user = await User.findById(userId);
@@ -75,17 +75,8 @@ async function updateCart(userId: string, dishId: string, operator: string) {
   }
 }
 
-// const userId1 = "663d6e6b7643576b26aa5497"; // Bob
-// const dishId1 = "663d80b7f6597992c77971d3"; // First dish
 
-const userId2 = "663d6e6c7643576b26aa5499"; // Alice
-const dishId2 = "663d80b7f6597992c77971d3";
 
-const operator = "-";
-
-export function runCartTest() {
-  updateCart(userId2, dishId2, operator);
-}
 
 // function calculateTotal(userCart: Cart) {
 //   let total = 0;
@@ -96,3 +87,4 @@ export function runCartTest() {
 
 //   return total.toFixed(2);
 // }
+

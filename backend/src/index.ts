@@ -1,9 +1,11 @@
+import 'dotenv/config';
+
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import 'dotenv/config';
 import mongoose from 'mongoose';
 import userRoute from './routes/UserRoute';
 //import { getMenu } from '../models/dishes';
+import { updateCart } from './controller/CartController';
 
 
 const port = 3000;
@@ -21,6 +23,11 @@ app.use('/api/v1/user/profile', userRoute);
 //    // const menu = await getMenu()
 //     res.json({ message: "Testing" });
 // })
+
+const userId2 = "663d6e6c7643576b26aa5499"; // Alice
+const dishId2 = "663d80b7f6597992c77971d3";
+const operator = "+";
+updateCart(userId2, dishId2, operator);
 
 app.listen(port, () => {
     console.log("server is running");

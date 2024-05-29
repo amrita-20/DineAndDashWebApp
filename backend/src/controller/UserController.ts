@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Request, Response } from "express";
-import User, { addressSchema, userSchema } from "../models/User";
+import User, {  userSchema } from "../models/User";
 
 const getUser = async (req: Request, res: Response) => {
   try {
@@ -77,20 +77,20 @@ const testNewUser1 = {
   email: "Bob@gmail.com",
   phone: 111111111,
   address: [
-    new mongoose.Types.Subdocument({
+    {
       road: "Park Avenue",
       postCode: 18881,
       city: "New York",
       state: "NY",
       country: "USA",
-    }),
-    new mongoose.Types.Subdocument({
+    },
+    {
       road: "South Street",
       postCode: 95112,
       city: "New York",
       state: "NY",
       country: "USA",
-    }),
+    },
   ],
   cart: [],
 };
@@ -120,7 +120,7 @@ const testNewUser2 = {
 };
 
 export function runUserTest() {
-  addUser(testNewUser1);
+  // addUser(testNewUser1);
   // addUser(testNewUser2);
 }
 
