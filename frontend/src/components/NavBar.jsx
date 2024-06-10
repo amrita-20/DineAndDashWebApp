@@ -10,7 +10,7 @@ import CartIcon from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
 
 import "../css/NavBar.css";
 
-function NavBar() {
+function NavBar({cartItems}) {
   const [showMenu, setShowMenu] = useState(false);
 
   function handleSubmit(e) {
@@ -18,6 +18,9 @@ function NavBar() {
     // TODO: rest of the logic
   }
 
+  function handleCartItems() {
+
+  }
   const {loginWithRedirect, isAuthenticated, user, logout} = useAuth0();
   return (
     <header>
@@ -43,6 +46,10 @@ function NavBar() {
       </div>
     
       <div className="control-container">
+      <button className="button-cart" type="button">
+        <Link to="/cart"><img className="cart-icon" src={CartIcon} alt="cart" /></Link>
+          <span className="cart-count">{cartItems.length}</span>
+        </button>
         {isAuthenticated ? 
         <nav className="dropmenu" onMouseLeave={() => setShowMenu(false)}>
           <button

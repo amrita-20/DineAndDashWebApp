@@ -7,7 +7,7 @@ import "../css/Home.css";
 import { useGetMenuDetails } from "../services/MenuServices";
 import Error from "./Error";
 
-function MenuPage() {
+function MenuPage({ addToCart }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [showMenu, setShowMenu] = useState(false);
 
@@ -101,7 +101,7 @@ function MenuPage() {
             <p>{dish.description}</p>
             <div className="cart-bottom">
               <span>Price: {dish.price}</span>
-              <button className="button-add-to-cart">Add + </button>
+              <button className="button-add-to-cart" onClick={() => addToCart(dish)}>Add + </button>
             </div>
           </li>
         ))}
