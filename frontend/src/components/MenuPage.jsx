@@ -5,11 +5,11 @@ import reducer, { initialState } from "../reducer";
 import { useGetMenuDetails } from "../services/MenuServices";
 
 import Error from "./Error";
-
 import Menu from "../assets/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import "../css/MenuPage.css";
 
-function MenuPage() {
+function MenuPage({ addToCart }) {
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const [showMenu, setShowMenu] = useState(false);
   const { menuDetails, isLoading, error } = useGetMenuDetails();
@@ -121,7 +121,7 @@ function MenuPage() {
             <p>{dish.description}</p>
             <div className="cart-bottom">
               <span>Price: {dish.price}</span>
-              <button className="button-add-to-cart">Add + </button>
+              <button className="button-add-to-cart" onClick={() => addToCart(dish)}>Add + </button>
             </div>
           </li>
         ))}

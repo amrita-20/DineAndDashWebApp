@@ -1,11 +1,14 @@
+import { useState } from "react";
 import NavBar from "./NavBar";
 
-function Layout ({children}) {
+function Layout ({children, cartItems}) {
+   
+
     return(
-       <div>
-        <NavBar />
+       <>
+        <NavBar cartItems={cartItems} />
         <div>{children}</div>
-       </div>
+       </>
     )
 }
 

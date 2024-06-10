@@ -22,13 +22,13 @@ export const useGetOrders = () => {
     }
 }
 
-export const useCreateCheckoutSessionReq = () => {
+export const useCreateCheckoutSession = () => {
     const { getAccessTokenSilently } = useAuth0();
 
     const createCheckoutSessionReq = async (checkoutSessionReq) => {
         const authToken = await getAccessTokenSilently();
 
-        const response = fetch(`${API_BASE_URL}/api/order/checkout/create-checkout-session`, {
+        const response = await fetch(`${API_BASE_URL}/api/order/checkout/create-checkout-session`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${authToken}`,
@@ -40,13 +40,13 @@ export const useCreateCheckoutSessionReq = () => {
         if(!response.ok)
             throw new Error("error creating session request");
         
-        return response.jsoon();
+        return response.json();
     }
 
-    const { mutateAsync: createSessionReq, isLoading, error, reset } = useMutation(createCheckoutSessionReq);
+    const { mutateAsync: createCheckoutSession, isLoading, error, reset } = useMutation(createCheckoutSessionReq);
 
     return {
-        createSessionReq,
+        createCheckoutSession,
         isLoading,
         error,
         reset

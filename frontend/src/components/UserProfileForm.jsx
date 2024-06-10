@@ -4,7 +4,7 @@ import Error from "./Error";
 
 import "../css/UserProfileForm.css";
 
-function UserProfileForm({onSave, isLoading, userDetails}) {
+function UserProfileForm({onSave, isLoading, userDetails, title="User Profile", buttonText="Submit"}) {
     const lastIdx = userDetails?.addresses.length-1;
     const [errorMessage, setErrorMessage] = useState('');
     const [info, setInfo] = useState({
@@ -44,6 +44,7 @@ function UserProfileForm({onSave, isLoading, userDetails}) {
       const formData = {
         name: info.name,
         phoneNumber: info.phoneNumber,
+        email: info.email,
         address
       }
     onSave(formData);
@@ -53,7 +54,7 @@ function UserProfileForm({onSave, isLoading, userDetails}) {
     <>
       <div className="main-wrapper">
         <div className="form-register">
-          <h2 className="form-header">User Profile Form</h2>
+          <h2 className="form-header">{title}</h2>
           <p>View and change your profile information here</p>
           <form className="form-profile" onSubmit={(e) => handleSubmit(e)}>
           <div className="form-container">
@@ -158,7 +159,7 @@ function UserProfileForm({onSave, isLoading, userDetails}) {
             </div>
            
             <button className="button-update" type="submit">
-              Submit
+              {buttonText}
             </button>
             {/* <Error errorMessage={{errorMessage}} /> */}
           </form>
