@@ -11,13 +11,13 @@ type CheckoutSessionRequest = {
       dishId: string;
       name: string;
       quantity: string;
-      price: number
+      price: string
     }[];
     deliveryDetails: {
       email: string;
       name: string;
       phone: number;
-      addresses: [];
+      address: {};
     };
   };
 
@@ -26,8 +26,8 @@ type CheckoutSessionRequest = {
   
       const line_item: Stripe.Checkout.SessionCreateParams.LineItem = {
         price_data: {
-          currency: "$",
-          unit_amount: cartItem.price,
+          currency: "usd",
+          unit_amount: parseInt(cartItem.price),
           product_data: {
             name: cartItem.name,
           },
@@ -55,7 +55,7 @@ type CheckoutSessionRequest = {
             type: "fixed_amount",
             fixed_amount: {
               amount: deliveryPrice,
-              currency: "$",
+              currency: "usd",
             },
           },
         },
@@ -94,7 +94,7 @@ const createCheckoutSession = async (req: Request, res: Response) => {
         return res.status(500).json({message: "error occur while creating stripe session"});
       }
       await newOrder.save();
-      res.json({uel : session.url});
+      res.json({url : session.url});
 
     }catch(error: any){
         console.log(error);
