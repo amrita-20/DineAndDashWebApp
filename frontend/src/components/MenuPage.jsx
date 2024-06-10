@@ -2,19 +2,39 @@ import { useEffect, useReducer, useState } from "react";
 
 import { ACTIONS } from "../constant";
 import reducer, { initialState } from "../reducer";
-import Menu from "../assets/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
-import "../css/Home.css";
 import { useGetMenuDetails } from "../services/MenuServices";
+
 import Error from "./Error";
+import Menu from "../assets/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+import "../css/MenuPage.css";
 
 function MenuPage({ addToCart }) {
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const [showMenu, setShowMenu] = useState(false);
-
-  const {menuDetails, isLoading, error} = useGetMenuDetails();
+  const { menuDetails, isLoading, error } = useGetMenuDetails();
+  const [filteredMenu, setFilteredMenu] = useState([]);
 
   function handleOnclick(e) {
-    setFilter(e.target.name);
+    const filter = e.target.name;
+    filterMenu(filter);
+    setShowMenu(!showMenu);
+  }
+
+  function filterMenu(filter) {
+    let filteredMenu;
+
+    if (!filter) {
+      filteredMenu = [...state.menu];
+    } else {
+      filteredMenu = state.menu.filter(
+        (item) =>
+          item.name.toLowerCase().includes(filter) ||
+          item.description.toLowerCase().includes(filter)
+      );
+    }
+
+    setFilteredMenu(filteredMenu);
   }
 
   function onFetchMenu() {
@@ -24,26 +44,26 @@ function MenuPage({ addToCart }) {
   useEffect(() => {
     if (!isLoading && !error) {
       onFetchMenu();
+      setFilteredMenu(menuDetails.menu)
     }
   }, [isLoading, error]);
 
-  if(isLoading){
-    return <span>Loading ....</span>
+  if (isLoading) {
+    return <span>Loading ....</span>;
   }
-  if(!menuDetails || error){
-    return<span>Unable to load user details</span>
-  } 
-  
+  if (!menuDetails || error) {
+    return <span>Unable to load user details</span>;
+  }
+
   return (
     <>
-  
-    <Error errorMessage={error} />
+      <Error errorMessage={error} />
       <div className="show-menu-button-container">
         <button
           className="button-show-menu"
           onClick={() => setShowMenu(!showMenu)}
         >
-          <img src={Menu} alt="" />
+          <img src={Menu} alt="menu" />
         </button>
       </div>
 
@@ -63,7 +83,7 @@ function MenuPage({ addToCart }) {
         <button className="button-menu" name="paella" onClick={handleOnclick}>
           Paella
         </button>
-        <button className="button-menu" name="steaks" onClick={handleOnclick}>
+        <button className="button-menu" name="steak" onClick={handleOnclick}>
           Steaks
         </button>{" "}
         <button className="button-menu" name="seafood" onClick={handleOnclick}>
@@ -88,7 +108,7 @@ function MenuPage({ addToCart }) {
       </div>
 
       <ul className="cards">
-        {state.menu.map((dish) => (
+        {filteredMenu.map((dish) => (
           <li className="card" key={dish._id}>
             <div className="card-image-container">
               <img
