@@ -6,13 +6,13 @@ const orderSchema = new mongoose.Schema({
     email: { type: String, required: true },
     name: { type: String, required: true },
     phone: { type: Number, required: true },
-    addresses: [{
+    address: {
       street: { type: String, required: true },
       postCode: { type: Number, required: true },
       city: { type: String, required: true },
       state: { type: String, required: true },
       country: { type: String, required: true }
-    }],
+    },
   },
   cartItems: [
     {
@@ -23,6 +23,7 @@ const orderSchema = new mongoose.Schema({
     },
   ],
   totalAmount: Number,
+  deliveryFee: {type: Number, required: true},
   status: {
     type: String,
     enum: ["placed", "paid", "inProgress", "outForDelivery", "delivered"],

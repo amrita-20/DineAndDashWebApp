@@ -7,6 +7,7 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import Layout from "./components/Layout";
 import MenuPage from "./components/MenuPage";
 import Cart from "./components/Cart";
+import OrderStatus from "./components/OrderStatus";
 
 function AppRoutes () {
     const [cartItems, setCartItems] = useState(() => {
@@ -91,6 +92,7 @@ function AppRoutes () {
                 <Route path="/user-profile" element={<Layout cartItems={cartItems}><UserProfilePage/></Layout>} />
                 <Route path="/menu" element={<Layout cartItems={cartItems}><MenuPage addToCart={addToCart} removeFromCart={removeFromCart} /></Layout>} />
                 <Route path="/cart" element={<Layout cartItems={cartItems}><Cart cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} /></Layout>} />
+                <Route path="/order-status" element={<Layout cartItems={cartItems}><OrderStatus /></Layout>} />
             </Route>
          
             <Route path="*" element={<Navigate to="/" />} />
