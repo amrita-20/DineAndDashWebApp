@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -9,7 +9,8 @@ export const useGetOrders = () => {
 
     const getOrderRequest = async () => {
         const authToken = await getAccessTokenSilently();
-        const response =  fetch(`${API_BASE_URL}/api/order`, {
+        const response =  await fetch(`${API_BASE_URL}/api/order`, {
+            method: "GET",
             headers:{
                 Authorization: `Bearer ${authToken}`
             }
@@ -19,6 +20,12 @@ export const useGetOrders = () => {
             throw new Error("error fetching orders");
 
         return response.json();
+    }
+    const {data: orders, isLoading} = useQuery("fetchOrderRequest", getOrderRequest);
+
+    return{
+        orders,
+        isLoading
     }
 }
 
