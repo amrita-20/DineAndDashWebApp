@@ -1,0 +1,103 @@
+.orders {
+    list-style: none;
+
+    margin: 4rem;
+    padding: 1rem;
+
+    border-radius: 10px;
+}
+
+.card-order {
+    background-color: white;
+    
+    margin-bottom: 1rem;
+    
+    border-radius: 10px;
+}
+
+.order-header-info {
+    background-color: lightgray;
+    
+    padding: 2rem;
+    
+    font-size: 1.1rem;
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+
+    border-top-left-radius:10px;
+    border-top-right-radius: 10px;
+}
+
+.order-date {
+    font-weight: bold;
+
+    grid-column: 2 span;
+}
+
+.order-id {
+    grid-column: 9 span;
+}
+
+.order-amount {
+    font-weight: bold;
+
+    grid-column: 1 span;
+}
+
+.order-info {
+    grid-column: 8 span;
+}
+
+.item-details {
+    padding: 2rem;
+    list-style: none;
+}
+
+.card-item-detail {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.item-image-container {
+    grid-column: 2 span;
+
+    width: 120px;
+    height: 120px;
+}
+
+.item-image {
+    width: 120px;
+    height: 120px;
+    
+    object-fit: cover;
+
+    border-radius: 8px;
+}
+
+.item-text {
+    grid-column: 7 span;
+
+    display: flex;
+    flex-direction: column;
+
+    max-width: 40rem;
+
+    gap: 1rem;
+}
+
+.item-price {
+    grid-column: 1 span;
+}
+
+.item-quantity {
+    grid-column: 1 span;
+}
+
+.item-subtotal {
+    grid-column: 1 span;
+}
