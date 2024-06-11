@@ -11,7 +11,7 @@ type CheckoutSessionRequest = {
       dishId: string;
       name: string;
       quantity: string;
-      price: string
+      price: string;
     }[];
     deliveryDetails: {
       email: string;
@@ -19,6 +19,7 @@ type CheckoutSessionRequest = {
       phone: number;
       address: {};
     };
+    deliveryFee: number
   };
 
   const createLineItems = (checkoutSessionReq: CheckoutSessionRequest) => {
@@ -82,13 +83,14 @@ const createCheckoutSession = async (req: Request, res: Response) => {
         status: "placed",
         deliveryDetails: checkoutSessionRequest.deliveryDetails,
         cartItems: checkoutSessionRequest.cartItems,
+        deliveryFee: checkoutSessionRequest.deliveryFee,
         createdAt: new Date(),
       });
   
       const session = await createSession(
         lineItems,
         newOrder._id.toString(),
-          20   //deliveryPrice update later
+        newOrder.deliveryFee
       );
       if(!session.url){
         return res.status(500).json({message: "error occur while creating stripe session"});
@@ -140,15 +142,20 @@ const stripeWebhookHandler = async (req: Request, res: Response) => {
   res.status(200).send();
 };
 
-const getOrders = async (req: Request, res: Response) => {
+const getMyOrders = async (req: Request, res: Response) => {
     try{
-        const checkoutSessionReq : CheckoutSessionRequest = req.body;
-    } catch(error) {
+      const orders = await Order.find({ user: req.userId })
+      .populate("user");
 
+    res.json(orders);
+    } catch(error) {
+      console.log(error);
+      res.status(500).json({message: "Something went wrong"});
     }
 }
 
 export default {
   createCheckoutSession,
-  stripeWebhookHandler
+  stripeWebhookHandler,
+  getMyOrders
 }

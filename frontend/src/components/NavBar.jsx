@@ -69,10 +69,10 @@ function NavBar({cartItems}) {
                 <Link to="/menu">Menu</Link>
               </li>
               <li className="menu-item">
-                <Link>Orders</Link>
-              </li>
-              <li className="menu-item">
                 <Link to="/user-profile">Profile</Link>
+              </li>
+              <li to="/order-status" className="menu-item">
+                <Link>Orders Status</Link>
               </li>
               <li className="menu-item">
                 <Link onClick={() => logout()}>Logout</Link>
