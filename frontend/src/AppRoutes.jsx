@@ -96,20 +96,20 @@ function AppRoutes() {
           </Layout>
         }
       />
+      <Route
+          path="/menu"
+          element={
+            <Layout cartItems={cartItems}>
+              <MenuPage addToCart={addToCart} removeFromCart={removeFromCart} />
+            </Layout>
+          }
+        />
       <Route element={<ProtectedRoute />}>
         <Route
           path="/user-profile"
           element={
             <Layout cartItems={cartItems}>
               <UserProfilePage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/menu"
-          element={
-            <Layout cartItems={cartItems}>
-              <MenuPage addToCart={addToCart} removeFromCart={removeFromCart} />
             </Layout>
           }
         />
