@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import HomeIcon from "../assets/home_FILL0_wght400_GRAD0_opsz24.svg";
 import SearchIcon from "../assets/search_FILL0_wght400_GRAD0_opsz24.svg";
@@ -10,18 +10,16 @@ import CartIcon from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
 
 import "../css/NavBar.css";
 
-function NavBar({cartItems}) {
+function NavBar({ cartItems }) {
   const [showMenu, setShowMenu] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
     // TODO: rest of the logic
   }
-  function handleCartItems() {
+  function handleCartItems() {}
 
-  }
-
-  const {loginWithRedirect, isAuthenticated, user, logout} = useAuth0();
+  const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
   return (
     <header>
       <div className="logo-container">
@@ -47,7 +45,9 @@ function NavBar({cartItems}) {
 
       <div className="control-container">
         <button className="button-cart" type="button">
-          <Link to="/cart"><img className="cart-icon" src={CartIcon} alt="cart" /></Link>
+          <Link to="/cart">
+            <img className="cart-icon" src={CartIcon} alt="cart" />
+          </Link>
           <span className="cart-count">{cartItems.length}</span>
         </button>
         {isAuthenticated ? (
@@ -71,9 +71,15 @@ function NavBar({cartItems}) {
               <li className="menu-item">
                 <Link to="/user-profile">Profile</Link>
               </li>
-              <li to="/order-status" className="menu-item">
-                <Link>Orders Status</Link>
-              </li>
+              {user.name === "Amrita Dubey" ? (
+                <li className="menu-item">
+                  <Link to="/order-management">Orders Management</Link>
+                </li>
+              ) : (
+                <li className="menu-item">
+                  <Link to="/order-status">Orders Status</Link>
+                </li>
+              )}
               <li className="menu-item">
                 <Link onClick={() => logout()}>Logout</Link>
               </li>
