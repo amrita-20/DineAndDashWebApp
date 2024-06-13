@@ -4,8 +4,17 @@ import "../css/Cart.css";
 import CheckoutButton from "./CheckoutButton";
 import { useCreateCheckoutSession } from "../services/OrderServices";
 
-function Cart({ cartItems, addToCart, removeFromCart, onPlaceOrder, info, errorMessage, setErrorMessage }) {
-    const { createCheckoutSession, isLoading: isCheckoutLoading } = useCreateCheckoutSession();
+function Cart({
+  cartItems,
+  addToCart,
+  removeFromCart,
+  onPlaceOrder,
+  info,
+  errorMessage,
+  setErrorMessage,
+}) {
+  const { createCheckoutSession, isLoading: isCheckoutLoading } =
+    useCreateCheckoutSession();
 
   const getTotalCost = () => {
     const totalInPence = cartItems.reduce(
@@ -17,14 +26,13 @@ function Cart({ cartItems, addToCart, removeFromCart, onPlaceOrder, info, errorM
   };
 
   const getDeliveryFee = () => {
-    const deliveryFee = ((getTotalCost() * 10) / 100);
+    const deliveryFee = (getTotalCost() * 10) / 100;
     return deliveryFee;
-  }
+  };
 
   const getTotalWithDelivery = () => {
     return (getTotalCost() + getDeliveryFee()).toFixed(2);
-  }
-
+  };
 
   function handleClick(dishId, operator) {
     onUpdateCart({ dishId, operator }); // Here we setCart already. So cart is not empty
@@ -48,7 +56,7 @@ function Cart({ cartItems, addToCart, removeFromCart, onPlaceOrder, info, errorM
     //   setPage("profile");
     //   return;
     // }
-    
+
     onPlaceOrder(orderData);
     setPage("processing");
   }
@@ -59,14 +67,15 @@ function Cart({ cartItems, addToCart, removeFromCart, onPlaceOrder, info, errorM
         dishId: cartItem._id,
         name: cartItem.name,
         quantity: cartItem.quantity.toString(),
-        price: cartItem.price
+        price: cartItem.price,
       })),
       deliveryDetails: {
         name: userFormData.name,
         phone: userFormData.phoneNumber,
         email: userFormData.email,
-        address: userFormData.address
+        address: userFormData.address,
       },
+      deliveryFee: getDeliveryFee().toFixed(2),
     };
 
     const data = await createCheckoutSession(checkoutData);
@@ -111,7 +120,9 @@ function Cart({ cartItems, addToCart, removeFromCart, onPlaceOrder, info, errorM
                   +
                 </button>
               </div>
-              <span className="dish-subtotal">{dish.quantity * dish.price}</span>
+              <span className="dish-subtotal">
+                {dish.quantity * dish.price}
+              </span>
             </li>
           ))}
 
@@ -119,8 +130,12 @@ function Cart({ cartItems, addToCart, removeFromCart, onPlaceOrder, info, errorM
             <>
               <hr />
               <div className="checkout-control">
-                <div className="cart-total">Delivery Fee: {getDeliveryFee().toFixed(2)}</div>
-                <div className="cart-total">Total: {getTotalWithDelivery()}</div>
+                <div className="cart-total">
+                  Delivery Fee: {getDeliveryFee().toFixed(2)}
+                </div>
+                <div className="cart-total">
+                  Total: {getTotalWithDelivery()}
+                </div>
                 {/* <select
                   name="select-mode"
                   id="mode"
@@ -129,10 +144,10 @@ function Cart({ cartItems, addToCart, removeFromCart, onPlaceOrder, info, errorM
                   <option value="table">In store</option>
                   <option value="online">Online</option>
                 </select> */}
-                <CheckoutButton 
-                disabled={cartItems.length === 0}
-                onCheckout={onCheckout}
-                isLoading={isCheckoutLoading}
+                <CheckoutButton
+                  disabled={cartItems.length === 0}
+                  onCheckout={onCheckout}
+                  isLoading={isCheckoutLoading}
                 />
               </div>
             </>
