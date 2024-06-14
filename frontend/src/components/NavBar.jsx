@@ -3,21 +3,15 @@ import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
-import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { AccountCircle } from "@mui/icons-material";
-
-// 以下icons全不要
-import HomeIcon from "../assets/home_FILL0_wght400_GRAD0_opsz24.svg";
-import SearchIcon from "../assets/search_FILL0_wght400_GRAD0_opsz24.svg";
-import AccountIcon from "../assets/account_circle_FILL0_wght400_GRAD0_opsz24.svg";
-import CartIcon from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
+import { Badge, IconButton, Stack, Typography } from "@mui/material";
+import { AccountCircle, Home, Search, ShoppingCart } from "@mui/icons-material";
 
 import "../css/NavBar.css";
-import { IconButton } from "@mui/material";
 
 function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
+  // Dropmenu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -27,6 +21,7 @@ function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
     setAnchorEl(null);
   };
 
+  // Search bar
   const [showMenu, setShowMenu] = useState(false);
   const [filter, setFilter] = useState("");
 
@@ -42,12 +37,11 @@ function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
   return (
     <header>
       <div className="logo-container">
-        <Link className="button-home" to="/">
-          <img className="home-icon" src={HomeIcon} alt="homepage" />
-        </Link>
+        <IconButton component={Link} to="/" color="inherit">
+          <Home />
+        </IconButton>
         <h1 className="logo-title">Dish&Dash</h1>
       </div>
-
       <div className="search-container">
         <form className="form-search" onSubmit={handleSubmitSearch}>
           <input
@@ -56,19 +50,20 @@ function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
             placeholder="Search menu..."
             onChange={(e) => setFilter(e.target.value)}
           />
-          <button className="button-search" type="submit">
-            <img className="search-icon" src={SearchIcon} alt="search" />
-          </button>
+          <IconButton className="button-search">
+            <Search className="search-icon" sx={{ color: "black" }} />
+          </IconButton>
         </form>
       </div>
 
+      {/* TO FIX: the cart only counts different types of dishes, not number of dishes */}
       <div className="control-container">
-        <button className="button-cart" type="button">
-          <Link to="/cart">
-            <img className="cart-icon" src={CartIcon} alt="cart" />
-          </Link>
-          <span className="cart-count">{cartItems.length}</span>
-        </button>
+        <IconButton component={Link} to="/cart" color="inherit">
+          <Badge badgeContent={cartItems.length} color="secondary">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
+
         {isAuthenticated ? (
           <nav>
             <IconButton
