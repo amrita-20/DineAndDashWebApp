@@ -1,5 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useReducer, useState } from "react";
+
+import { ACTIONS } from "./constant";
+import reducer, { initialState } from "./reducer";
+import { useGetMenuDetails } from "./services/MenuServices";
+
 import Home from "./components/Home";
 import AuthCallback from "./components/AuthCallback";
 import UserProfilePage from "./components/UserProfilePage";
@@ -11,6 +16,38 @@ import OrderStatus from "./components/OrderStatus";
 import OrderManage from "./components/OrderManage";
 
 function AppRoutes() {
+  // Reducer
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // This could be the wrong place for them
+  const { menuDetails, isLoading, error } = useGetMenuDetails();
+
+  // Menu
+  // Fetch menu
+  function onFetchMenu() {
+    dispatch({ type: ACTIONS.LOAD_MENU, payload: menuDetails.menu });
+  }
+
+  // Filter menu 
+  const [filteredMenu, setFilteredMenu] = useState([]); // TODO: move to reducer
+
+  function filterMenu(filter) {
+    let filteredMenu;
+
+    if (!filter) {
+      filteredMenu = [...state.menu];
+    } else {
+      filteredMenu = state.menu.filter(
+        (item) =>
+          item.name.toLowerCase().includes(filter) ||
+          item.description.toLowerCase().includes(filter)
+      );
+    }
+
+    setFilteredMenu(filteredMenu);
+  }
+
+  // Cart
   const [cartItems, setCartItems] = useState(() => {
     const storedCartItems = sessionStorage.getItem("cartItems");
     return storedCartItems ? JSON.parse(storedCartItems) : [];
@@ -97,13 +134,23 @@ function AppRoutes() {
         }
       />
       <Route
-          path="/menu"
-          element={
-            <Layout cartItems={cartItems}>
-              <MenuPage addToCart={addToCart} removeFromCart={removeFromCart} />
-            </Layout>
-          }
-        />
+        path="/menu"
+        element={
+          <Layout cartItems={cartItems}>
+            <MenuPage
+              addToCart={addToCart}
+              removeFromCart={removeFromCart}
+              onFetchMenu={onFetchMenu}
+              filterMenu={filterMenu}
+              filteredMenu={filteredMenu}
+              setFilteredMenu={setFilteredMenu}
+              menuDetails={menuDetails}
+              isLoading={isLoading}
+              error={error}
+            />
+          </Layout>
+        }
+      />
       <Route element={<ProtectedRoute />}>
         <Route
           path="/user-profile"

@@ -1,19 +1,21 @@
-import { useEffect, useReducer, useState } from "react";
-
-import { ACTIONS } from "../constant";
-import reducer, { initialState } from "../reducer";
-import { useGetMenuDetails } from "../services/MenuServices";
+import { useEffect, useState } from "react";
 
 import Error from "./Error";
 import Menu from "../assets/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+
 import "../css/MenuPage.css";
 
-function MenuPage({ addToCart }) {
-
-  const [state, dispatch] = useReducer(reducer, initialState);
+function MenuPage({
+  addToCart,
+  filterMenu,
+  filteredMenu,
+  setFilteredMenu,
+  onFetchMenu,
+  menuDetails,
+  isLoading,
+  error
+}) {
   const [showMenu, setShowMenu] = useState(false);
-  const { menuDetails, isLoading, error } = useGetMenuDetails();
-  const [filteredMenu, setFilteredMenu] = useState([]);
 
   function handleOnclick(e) {
     const filter = e.target.name;
@@ -21,30 +23,10 @@ function MenuPage({ addToCart }) {
     setShowMenu(!showMenu);
   }
 
-  function filterMenu(filter) {
-    let filteredMenu;
-
-    if (!filter) {
-      filteredMenu = [...state.menu];
-    } else {
-      filteredMenu = state.menu.filter(
-        (item) =>
-          item.name.toLowerCase().includes(filter) ||
-          item.description.toLowerCase().includes(filter)
-      );
-    }
-
-    setFilteredMenu(filteredMenu);
-  }
-
-  function onFetchMenu() {
-    dispatch({ type: ACTIONS.LOAD_MENU, payload: menuDetails.menu });
-  }
-
   useEffect(() => {
     if (!isLoading && !error) {
       onFetchMenu();
-      setFilteredMenu(menuDetails.menu)
+      setFilteredMenu(menuDetails.menu);
     }
   }, [isLoading, error]);
 
@@ -121,7 +103,12 @@ function MenuPage({ addToCart }) {
             <p>{dish.description}</p>
             <div className="cart-bottom">
               <span>Price: {dish.price}</span>
-              <button className="button-add-to-cart" onClick={() => addToCart(dish)}>Add + </button>
+              <button
+                className="button-add-to-cart"
+                onClick={() => addToCart(dish)}
+              >
+                Add +{" "}
+              </button>
             </div>
           </li>
         ))}
