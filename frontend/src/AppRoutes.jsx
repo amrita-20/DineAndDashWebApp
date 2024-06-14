@@ -28,7 +28,7 @@ function AppRoutes() {
     dispatch({ type: ACTIONS.LOAD_MENU, payload: menuDetails.menu });
   }
 
-  // Filter menu 
+  // Filter menu
   const [filteredMenu, setFilteredMenu] = useState([]); // TODO: move to reducer
 
   function filterMenu(filter) {
@@ -120,7 +120,12 @@ function AppRoutes() {
       <Route
         path="/"
         element={
-          <Layout cartItems={cartItems}>
+          <Layout
+            cartItems={cartItems}
+            filterMenu={filterMenu}
+            filteredMenu={filteredMenu}
+            setFilteredMenu={setFilteredMenu}
+          >
             <Home />
           </Layout>
         }
@@ -136,7 +141,7 @@ function AppRoutes() {
       <Route
         path="/menu"
         element={
-          <Layout cartItems={cartItems}>
+          <Layout cartItems={cartItems} filterMenu={filterMenu}>
             <MenuPage
               addToCart={addToCart}
               removeFromCart={removeFromCart}
