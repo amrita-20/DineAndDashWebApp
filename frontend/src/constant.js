@@ -30,9 +30,12 @@ export const MESSAGES = {
 };
 
 export const ACTIONS = {
+  // Session
   START_LOADING: "start loading",
   LOG_IN: "logIn",
   LOG_OUT: "logOut",
 
+  // Menu
   LOAD_MENU: "load menu",
+  FILTER_MENU: "filter menu",
 };

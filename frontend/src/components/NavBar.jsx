@@ -10,15 +10,16 @@ import CartIcon from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
 
 import "../css/NavBar.css";
 
-function NavBar({ cartItems }) {
+function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
   const [showMenu, setShowMenu] = useState(false);
+  const [filter, setFilter] = useState("")
 
   function handleSubmitSearch(e) {
     e.preventDefault();
-    
+    filterMenu(filter);
+    setShowMenu(!showMenu);
   }
 
-  
   function handleCartItems() {}
 
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
@@ -37,7 +38,7 @@ function NavBar({ cartItems }) {
             type="text"
             className="search"
             placeholder="Search menu..."
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => setFilter(e.target.value)}
           />
           <button className="button-search" type="submit">
             <img className="search-icon" src={SearchIcon} alt="search" />
