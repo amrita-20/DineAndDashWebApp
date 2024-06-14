@@ -91,12 +91,16 @@ function MenuPage({
           </Button>
         ))}
       </Box>
-      <IconButton
-        onClick={toggleDrawer(true)}
-        sx={{ display: { xs: "block", sm: "none" } }}
-      >
-        <Menu />
-      </IconButton>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <IconButton
+          onClick={toggleDrawer(true)}
+          sx={{
+            display: { xs: "block", sm: "none" },
+          }}
+        >
+          <Menu />
+        </IconButton>
+      </Box>
       <Drawer
         anchor="top"
         open={open}
