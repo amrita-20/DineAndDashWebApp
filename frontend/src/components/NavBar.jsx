@@ -13,10 +13,12 @@ import "../css/NavBar.css";
 function NavBar({ cartItems }) {
   const [showMenu, setShowMenu] = useState(false);
 
-  function handleSubmit(e) {
+  function handleSubmitSearch(e) {
     e.preventDefault();
-    // TODO: rest of the logic
+    
   }
+
+  
   function handleCartItems() {}
 
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
@@ -30,7 +32,7 @@ function NavBar({ cartItems }) {
       </div>
 
       <div className="search-container">
-        <form className="form-search" onSubmit={handleSubmit}>
+        <form className="form-search" onSubmit={handleSubmitSearch}>
           <input
             type="text"
             className="search"
