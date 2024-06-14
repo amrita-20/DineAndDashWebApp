@@ -1,9 +1,35 @@
 import { useEffect, useState } from "react";
 
+import {
+  Box,
+  Button,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Stack,
+} from "@mui/material";
+
 import Error from "./Error";
-import Menu from "../assets/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 
 import "../css/MenuPage.css";
+import { Menu } from "@mui/icons-material";
+
+const menu = [
+  "salad",
+  "rice",
+  "pizza",
+  "noodles",
+  "paella",
+  "steak",
+  "seafood",
+  "appetizer",
+  "dessert",
+  "cheese",
+  "wine",
+];
 
 function MenuPage({
   addToCart,
@@ -13,12 +39,18 @@ function MenuPage({
   onFetchMenu,
   menuDetails,
   isLoading,
-  error
+  error,
 }) {
-  const [showMenu, setShowMenu] = useState(false);
+  // Drawer
+  const [open, setOpen] = useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
+  // Filter
+  const [showMenu, setShowMenu] = useState(false);
   function handleOnclick(e) {
-    const filter = e.target.name;
+    const filter = e.currentTarget.getAttribute("name");
     filterMenu(filter);
     setShowMenu(!showMenu);
   }
@@ -40,55 +72,49 @@ function MenuPage({
   return (
     <>
       <Error errorMessage={error} />
-      <div className="show-menu-button-container">
-        <button
-          className="button-show-menu"
-          onClick={() => setShowMenu(!showMenu)}
-        >
-          <img src={Menu} alt="menu" />
-        </button>
-      </div>
-
-      <div className={`hamburger-menu ${showMenu ? "open" : ""}`}>
-        <button className="button-menu" name="salad" onClick={handleOnclick}>
-          Salad
-        </button>
-        <button className="button-menu" name="rice" onClick={handleOnclick}>
-          Rice
-        </button>
-        <button className="button-menu" name="pizza" onClick={handleOnclick}>
-          Pizza
-        </button>
-        <button className="button-menu" name="noodles" onClick={handleOnclick}>
-          Noodles
-        </button>
-        <button className="button-menu" name="paella" onClick={handleOnclick}>
-          Paella
-        </button>
-        <button className="button-menu" name="steak" onClick={handleOnclick}>
-          Steaks
-        </button>{" "}
-        <button className="button-menu" name="seafood" onClick={handleOnclick}>
-          Seafood
-        </button>{" "}
-        <button
-          className="button-menu"
-          name="appetizer"
-          onClick={handleOnclick}
-        >
-          Appetizer
-        </button>{" "}
-        <button className="button-menu" name="dessert" onClick={handleOnclick}>
-          Dessert
-        </button>
-        <button className="button-menu" name="cheese" onClick={handleOnclick}>
-          Cheese
-        </button>
-        <button className="button-menu" name="wine" onClick={handleOnclick}>
-          Wine
-        </button>
-      </div>
-
+      <Box
+        sx={{
+          display: { xs: "none", sm: "flex" },
+          justifyContent: "center",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        {menu.map((dish) => (
+          <Button
+            color="inherit"
+            key={dish}
+            name={dish}
+            onClick={handleOnclick}
+          >
+            {dish}
+          </Button>
+        ))}
+      </Box>
+      <IconButton
+        onClick={toggleDrawer(true)}
+        sx={{ display: { xs: "block", sm: "none" } }}
+      >
+        <Menu />
+      </IconButton>
+      <Drawer
+        anchor="top"
+        open={open}
+        onClose={toggleDrawer(false)}
+        sx={{ display: { xs: "block", sm: "none" } }}
+      >
+        <Box role="presentation" onClick={toggleDrawer(false)}>
+          <List>
+            {menu.map((dish, index) => (
+              <ListItem key={index} disablePadding>
+                <ListItemButton name={dish} onClick={handleOnclick}>
+                  <ListItemText primary={dish} sx={{ textAlign: "center" }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Drawer>
       <ul className="cards">
         {filteredMenu.map((dish) => (
           <li className="card" key={dish._id}>
