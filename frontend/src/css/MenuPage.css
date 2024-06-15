@@ -135,12 +135,7 @@
     .hamburger-menu {
         flex-direction: row;
         justify-content: center;
-        /* flex-wrap: wrap;
 
-        height: auto;
-        visibility: initial;
-        position: fixed;
-        rotate: x 0deg; */
     }
 
     .cards {
