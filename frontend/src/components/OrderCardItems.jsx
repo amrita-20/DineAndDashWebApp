@@ -35,13 +35,13 @@ function OrderCardItems({ order }) {
   return (
     <li key={order._id} className="card-order">
       <div className="order-header-info">
-        <span className="order-date">
+        <p className="order-id">Order # {order._id}</p>
+        <p className="order-user">
           Customer Name : {order.deliveryDetails.name}
-        </span>
-        <span className="order-date">Time : {getExpectedDelivery(order)}</span>
-        <span className="order-id">Order # {order._id}</span>
-        <span>Delivering to: </span>
-        <span className="order-username">{order.deliveryDetails.name}</span>
+        </p>
+        <p className="order-date">Time : {getExpectedDelivery(order)}</p>
+        <p>Delivering to: </p>
+        <p className="order-username">{order.deliveryDetails.name}</p>
         {/* <span className="order-info">{order.deliveryDetails.address.street}</span>
               <span className="order-info">{order.deliveryDetails.address.city}</span>
               <span className="order-info">{order.deliveryDetails.address.state}</span> */}

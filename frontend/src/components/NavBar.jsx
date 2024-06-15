@@ -6,7 +6,13 @@ import { Link } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Badge, IconButton, Stack, Typography } from "@mui/material";
-import { AccountCircle, Home, Search, ShoppingCart } from "@mui/icons-material";
+import {
+  AccountCircle,
+  Home,
+  Login,
+  Search,
+  ShoppingCart,
+} from "@mui/icons-material";
 
 import "../css/NavBar.css";
 
@@ -126,7 +132,18 @@ function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
             </Menu>
           </nav>
         ) : (
-          <button onClick={async () => await loginWithRedirect()}>Login</button>
+          <IconButton
+            color="inherit"
+            onClick={async () => await loginWithRedirect()}
+          >
+            <Typography
+              variant="h6"
+              sx={{ display: { xs: "none", sm: "initial" } }}
+            >
+              Login
+            </Typography>
+            <Login sx={{ display: { xs: "initial", sm: "none" } }} />
+          </IconButton>
         )}
       </div>
     </header>
