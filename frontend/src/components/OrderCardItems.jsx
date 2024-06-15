@@ -11,6 +11,7 @@ function OrderCardItems({ order }) {
   }, [order.status]);
 
   const handleStatusChange = async (e) => {
+    // Here is the problem
     await updateOrderStatus({
       orderId: order._id,
       status: e.target.value,
@@ -63,10 +64,10 @@ function OrderCardItems({ order }) {
         ))}
         <label htmlFor="status">What is the status of this order?</label>
         <select
+          id="status"
           value={status}
           disabled={isLoading}
           onChange={(e) => handleStatusChange(e)}
-          id="status"
         >
           {ORDER_STATUS.map((option) => (
             <option key={option.value} value={option.value}>
