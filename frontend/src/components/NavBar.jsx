@@ -95,7 +95,7 @@ function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
                 Menu
               </MenuItem>
 
-              {user.name === "Amrita Dubey" ? (
+              {user.name !== "Amrita Dubey" ? (
                 <MenuItem
                   component={Link}
                   to="/order-status"
