@@ -2,11 +2,11 @@
     display: flex;
     justify-content: center;
 }
+
 .form-register {
     background-color: white;
         
     padding: 2rem;
-    margin-top: 5rem;
 
     width: 20rem;
 
@@ -58,4 +58,11 @@
 
 .success-message{
     color: green;
+}
+
+@media (min-width: 600px) {
+    .form-register {
+
+    }
+
 }

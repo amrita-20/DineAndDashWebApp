@@ -85,14 +85,14 @@ function Cart({
   return (
     <>
       <div>
-        <ul className="cart-list">
+        <ul className="cart-list" >
           {cartItems.map((dish) => (
             <li className="cart-dish" key={dish._id}>
               <div className="dish-image-container">
                 <img className="dish-image" src={dish.image} alt="" />
               </div>
               <div className="text-container">
-                <h3 className="dish-name">{dish.name}</h3>
+                <span className="dish-name">{dish.name}</span>
                 <p className="dish-description">{dish.description}</p>
               </div>
 
