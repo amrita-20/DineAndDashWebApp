@@ -1,6 +1,7 @@
 import { useGetAllOrders } from "../services/OrderServices";
-import "../css/Order.css";
 import OrderCardItems from "./OrderCardItems";
+
+import "../css/Order.css";
 
 function OrderManage() {
   const { allOrders, isLoading } = useGetAllOrders();

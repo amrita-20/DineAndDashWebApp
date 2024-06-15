@@ -1,4 +1,3 @@
-import { useState } from "react";
 import NavBar from "./NavBar";
 
 function Layout({
@@ -16,7 +15,7 @@ function Layout({
         filteredMenu={filteredMenu}
         setFilteredMenu={setFilteredMenu}
       />
-      <div>{children}</div>
+      <main>{children}</main>
     </>
   );
 }

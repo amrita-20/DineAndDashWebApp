@@ -9,7 +9,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Stack,
 } from "@mui/material";
 
 import Error from "./Error";
