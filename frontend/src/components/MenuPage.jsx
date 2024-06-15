@@ -9,6 +9,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Paper,
 } from "@mui/material";
 
 import Error from "./Error";
@@ -71,12 +72,14 @@ function MenuPage({
   return (
     <>
       <Error errorMessage={error} />
-      <Box
+      <Paper
         sx={{
           display: { xs: "none", sm: "flex" },
           justifyContent: "center",
           alignItems: "center",
           flexWrap: "wrap",
+          position: "sticky",
+          top: "4rem",
         }}
       >
         {menu.map((dish) => (
@@ -89,8 +92,15 @@ function MenuPage({
             {dish}
           </Button>
         ))}
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      </Paper>
+      <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "4rem",
+        }}
+      >
         <IconButton
           onClick={toggleDrawer(true)}
           sx={{
@@ -99,7 +109,7 @@ function MenuPage({
         >
           <Menu />
         </IconButton>
-      </Box>
+      </Paper>
       <Drawer
         anchor="top"
         open={open}
