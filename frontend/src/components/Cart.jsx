@@ -1,8 +1,7 @@
-import { useState } from "react";
-
-import "../css/Cart.css";
 import CheckoutButton from "./CheckoutButton";
 import { useCreateCheckoutSession } from "../services/OrderServices";
+
+import "../css/Cart.css";
 
 function Cart({
   cartItems,
@@ -84,59 +83,54 @@ function Cart({
 
   return (
     <>
-      <div>
-        <ul className="cart-list" >
-          {cartItems.map((dish) => (
-            <li className="cart-dish" key={dish._id}>
-              <div className="dish-image-container">
-                <img className="dish-image" src={dish.image} alt="" />
-              </div>
-              <div className="text-container">
-                <span className="dish-name">{dish.name}</span>
-                <p className="dish-description">{dish.description}</p>
-              </div>
+      <ul className="cart-list">
+        {cartItems.map((dish) => (
+          <li className="cart-dish" key={dish._id}>
+            <div className="dish-image-container">
+              <img className="dish-image" src={dish.image} alt="" />
+            </div>
+            <div className="text-container">
+              <span className="dish-name">{dish.name}</span>
+              <p className="dish-description">{dish.description}</p>
+            </div>
 
-              <span className="dish-price">{dish.price}</span>
+            <span className="dish-price">{dish.price}</span>
 
-              <div className="quantity-control">
-                <button
-                  className="button-decrease"
-                  type="button"
-                  disabled={dish.quantity === 0}
-                  onClick={() => {
-                    removeFromCart(dish);
-                  }}
-                >
-                  -
-                </button>
-                <span className="dish-quantity">{dish.quantity}</span>
-                <button
-                  className="button-increase"
-                  type="button"
-                  onClick={() => {
-                    addToCart(dish);
-                  }}
-                >
-                  +
-                </button>
+            <div className="quantity-control">
+              <button
+                className="button-decrease"
+                type="button"
+                disabled={dish.quantity === 0}
+                onClick={() => {
+                  removeFromCart(dish);
+                }}
+              >
+                -
+              </button>
+              <span className="dish-quantity">{dish.quantity}</span>
+              <button
+                className="button-increase"
+                type="button"
+                onClick={() => {
+                  addToCart(dish);
+                }}
+              >
+                +
+              </button>
+            </div>
+            <span className="dish-subtotal">{dish.quantity * dish.price}</span>
+          </li>
+        ))}
+
+        {cartItems.length !== 0 ? (
+          <>
+            <hr />
+            <div className="checkout-control">
+              <div className="cart-total">
+                Delivery Fee: {getDeliveryFee().toFixed(2)}
               </div>
-              <span className="dish-subtotal">
-                {dish.quantity * dish.price}
-              </span>
-            </li>
-          ))}
-
-          {cartItems.length !== 0 ? (
-            <>
-              <hr />
-              <div className="checkout-control">
-                <div className="cart-total">
-                  Delivery Fee: {getDeliveryFee().toFixed(2)}
-                </div>
-                <div className="cart-total">
-                  Total: {getTotalWithDelivery()}
-                </div>
-                {/* <select
+              <div className="cart-total">Total: {getTotalWithDelivery()}</div>
+              {/* <select
                   name="select-mode"
                   id="mode"
                   onChange={handleOptionChange}
@@ -144,18 +138,17 @@ function Cart({
                   <option value="table">In store</option>
                   <option value="online">Online</option>
                 </select> */}
-                <CheckoutButton
-                  disabled={cartItems.length === 0}
-                  onCheckout={onCheckout}
-                  isLoading={isCheckoutLoading}
-                />
-              </div>
-            </>
-          ) : (
-            <h2>Cart is empty</h2>
-          )}
-        </ul>
-      </div>
+              <CheckoutButton
+                disabled={cartItems.length === 0}
+                onCheckout={onCheckout}
+                isLoading={isCheckoutLoading}
+              />
+            </div>
+          </>
+        ) : (
+          <h2>Cart is empty</h2>
+        )}
+      </ul>
     </>
   );
 }
