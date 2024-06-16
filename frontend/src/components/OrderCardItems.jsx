@@ -11,12 +11,16 @@ function OrderCardItems({ order }) {
   }, [order.status]);
 
   const handleStatusChange = async (e) => {
-    // Here is the problem
-    await updateOrderStatus({
-      orderId: order._id,
-      status: e.target.value,
-    });
-    setStatus(e.target.value);
+    const newStatus = e.target.value;
+    try {
+      await updateOrderStatus({
+        orderId: order._id,
+        status: newStatus,
+      });
+      setStatus(newStatus); 
+    } catch (error) {
+      console.error("Failed to update order status", error);
+    }
   };
 
   const getExpectedDelivery = (order) => {
@@ -50,7 +54,7 @@ function OrderCardItems({ order }) {
         {order.cartItems.map((dish) => (
           <li key={dish.dishId} className="card-item-detail">
             <div className="item-image-container">
-              <img className="item-image" src={dish.image} alt="" />
+              <img className="item-image" src={dish.imagePath} alt="" />
             </div>
             <div className="item-text">
               <span className="item-name">{dish.name}</span>

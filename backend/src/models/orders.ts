@@ -7,9 +7,9 @@ const orderSchema = new mongoose.Schema({
     name: { type: String, required: true },
     phone: { type: Number, required: true },
     address: {
-      street: { type: String, required: true },
+      street: { type: String},
       postCode: { type: Number, required: true },
-      city: { type: String, required: true },
+      city: { type: String},
       state: { type: String, required: true },
       country: { type: String, required: true }
     },
@@ -19,7 +19,8 @@ const orderSchema = new mongoose.Schema({
       dishId: { type: String, required: true },
       quantity: { type: Number, required: true },
       name: { type: String, required: true },
-      price: {type: Number, required: true}
+      price: {type: Number, required: true},
+      imagePath: {type: String}
     },
   ],
   totalAmount: Number,

@@ -75,6 +75,7 @@ function AppRoutes() {
             name: menuItem.name,
             price: menuItem.price,
             quantity: 1,
+            imagePath: menuItem.imagePath
           },
         ];
       }

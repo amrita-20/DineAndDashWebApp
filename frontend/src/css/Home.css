@@ -31,6 +31,22 @@
     font-size: 1.2rem;
 }
 
+.menu-navigation{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.explore-menu {
+    padding: 1rem;
+    background-color: black;
+    border: 1px solid transparent;
+    color: white;
+    text-decoration: none;
+}
+
 @media (min-width: 600px) {
     .home-image-container {
         width: 100%;
