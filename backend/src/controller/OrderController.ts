@@ -12,6 +12,7 @@ type CheckoutSessionRequest = {
     name: string;
     quantity: string;
     price: string;
+    imagePath: string;
   }[];
   deliveryDetails: {
     email: string;

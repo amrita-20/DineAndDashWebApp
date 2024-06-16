@@ -90,7 +90,7 @@ function Cart({
         {cartItems.map((dish) => (
           <li className="cart-dish" key={dish._id}>
             <div className="dish-image-container">
-              <img className="dish-image" src={dish.image} alt="" />
+              <img className="dish-image" src={dish.imagePath} alt="" />
             </div>
             <div className="text-container">
               <span className="dish-name">{dish.name}</span>
