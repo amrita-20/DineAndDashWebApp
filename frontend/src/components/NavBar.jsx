@@ -3,90 +3,147 @@ import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
-import HomeIcon from "../assets/home_FILL0_wght400_GRAD0_opsz24.svg";
-import SearchIcon from "../assets/search_FILL0_wght400_GRAD0_opsz24.svg";
-import AccountIcon from "../assets/account_circle_FILL0_wght400_GRAD0_opsz24.svg";
-import CartIcon from "../assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { AppBar, Badge, IconButton, Stack, Typography } from "@mui/material";
+import {
+  AccountCircle,
+  Home,
+  Login,
+  Search,
+  ShoppingCart,
+} from "@mui/icons-material";
 
 import "../css/NavBar.css";
 
-function NavBar({ cartItems }) {
-  const [showMenu, setShowMenu] = useState(false);
+function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
+  // Dropmenu
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-  function handleSubmit(e) {
+  // Search bar
+  const [showMenu, setShowMenu] = useState(false);
+  const [filter, setFilter] = useState("");
+
+  function handleSubmitSearch(e) {
     e.preventDefault();
-    // TODO: rest of the logic
+    filterMenu(filter);
+    setShowMenu(!showMenu);
   }
+
   function handleCartItems() {}
 
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
   return (
     <header>
       <div className="logo-container">
-        <Link className="button-home" to="/">
-          <img className="home-icon" src={HomeIcon} alt="homepage" />
-        </Link>
+        <IconButton component={Link} to="/" color="inherit">
+          <Home />
+        </IconButton>
         <h1 className="logo-title">Dish&Dash</h1>
       </div>
-
       <div className="search-container">
-        <form className="form-search" onSubmit={handleSubmit}>
+        <form className="form-search" onSubmit={handleSubmitSearch}>
           <input
             type="text"
             className="search"
             placeholder="Search menu..."
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => setFilter(e.target.value)}
           />
-          <button className="button-search" type="submit">
-            <img className="search-icon" src={SearchIcon} alt="search" />
-          </button>
+          <IconButton className="button-search">
+            <Search className="search-icon" sx={{ color: "black" }} />
+          </IconButton>
         </form>
       </div>
 
+      {/* TO FIX: the cart only counts different types of dishes, not number of dishes */}
       <div className="control-container">
-        <button className="button-cart" type="button">
-          <Link to="/cart">
-            <img className="cart-icon" src={CartIcon} alt="cart" />
-          </Link>
-          <span className="cart-count">{cartItems.length}</span>
-        </button>
-        {isAuthenticated ? (
-          <nav className="dropmenu" onMouseLeave={() => setShowMenu(false)}>
-            <button
-              className="button-dropmenu"
-              onClick={() => setShowMenu(!showMenu)}
-            >
-              <img
-                className="account-icon"
-                src={AccountIcon}
-                alt="control-center"
-              />
-              {/* <span>{user?.email}</span> */}
-            </button>
+        <IconButton component={Link} to="/cart" color="inherit">
+          <Badge badgeContent={cartItems.length} color="secondary">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
 
-            <ul className={`menu-list ${showMenu ? "show" : ""}`}>
-              <li className="menu-item">
-                <Link to="/menu">Menu</Link>
-              </li>
-              <li className="menu-item">
-                <Link to="/user-profile">Profile</Link>
-              </li>
-              {user.name === "Amrita Dubey" ? (
-                <li className="menu-item">
-                  <Link to="/order-management">Orders Management</Link>
-                </li>
+        {isAuthenticated ? (
+          <nav>
+            <IconButton
+              color="inherit"
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem component={Link} to="/menu" onClick={handleClose}>
+                Menu
+              </MenuItem>
+
+              {user.name !== "Amrita Dubey" ? (
+                <MenuItem
+                  component={Link}
+                  to="/order-status"
+                  onClick={handleClose}
+                >
+                  Orders Status
+                </MenuItem>
               ) : (
-                <li className="menu-item">
-                  <Link to="/order-status">Orders Status</Link>
-                </li>
+                <MenuItem
+                  component={Link}
+                  to="/order-management"
+                  onClick={handleClose}
+                >
+                  Orders Management
+                </MenuItem>
               )}
-              <li className="menu-item">
-                <Link onClick={() => logout()}>Logout</Link>
-              </li>
-            </ul>
+
+              <MenuItem
+                component={Link}
+                to="/user-profile"
+                onClick={handleClose}
+              >
+                My account
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                onClick={() => {
+                  handleClose();
+                  logout();
+                }}
+              >
+                Logout
+              </MenuItem>
+            </Menu>
           </nav>
         ) : (
-          <button onClick={async () => await loginWithRedirect()}>Login</button>
+          <IconButton
+            color="inherit"
+            onClick={async () => await loginWithRedirect()}
+          >
+            <Typography
+              variant="h6"
+              sx={{ display: { xs: "none", sm: "initial" } }}
+            >
+              Login
+            </Typography>
+            <Login sx={{ display: { xs: "initial", sm: "none" } }} />
+          </IconButton>
         )}
       </div>
     </header>

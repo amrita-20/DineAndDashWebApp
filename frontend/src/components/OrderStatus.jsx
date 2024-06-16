@@ -46,17 +46,17 @@ function OrderStatus() {
           {orders.map((order) => (
             <li key={order._id} className="card-order">
               <div className="order-header-info">
-                <span className="order-date">
+                <p className="order-id">Order # {order._id}</p>
+                <p className="order-user">
                   Order Status : {getOrderStatusInfo(order).label}
-                </span>
-                <span className="order-date">
+                </p>
+                <p className="order-date">
                   Expected Delivery by : {getExpectedDelivery(order)}
-                </span>
-                <span className="order-id">Order # {order._id}</span>
-                <span>Delivering to: </span>
-                <span className="order-username">
+                </p>
+                <p>Delivering to: </p>
+                <p className="order-username">
                   {order.deliveryDetails.name}
-                </span>
+                </p>
                 {/* <span className="order-info">{order.deliveryDetails.address.street}</span>
               <span className="order-info">{order.deliveryDetails.address.city}</span>
               <span className="order-info">{order.deliveryDetails.address.state}</span> */}

@@ -1,50 +1,64 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { ACTIONS } from "../constant";
-import reducer, { initialState } from "../reducer";
-import { useGetMenuDetails } from "../services/MenuServices";
+import {
+  Box,
+  Button,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Paper,
+} from "@mui/material";
 
 import Error from "./Error";
-import Menu from "../assets/menu_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+
 import "../css/MenuPage.css";
+import { Menu } from "@mui/icons-material";
 
-function MenuPage({ addToCart }) {
+const menu = [
+  "salad",
+  "rice",
+  "pizza",
+  "noodles",
+  "paella",
+  "steak",
+  "seafood",
+  "appetizer",
+  "dessert",
+  "cheese",
+  "wine",
+];
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+function MenuPage({
+  addToCart,
+  filterMenu,
+  filteredMenu,
+  setFilteredMenu,
+  onFetchMenu,
+  menuDetails,
+  isLoading,
+  error,
+}) {
+  // Drawer
+  const [open, setOpen] = useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+
+  // Filter
   const [showMenu, setShowMenu] = useState(false);
-  const { menuDetails, isLoading, error } = useGetMenuDetails();
-  const [filteredMenu, setFilteredMenu] = useState([]);
-
   function handleOnclick(e) {
-    const filter = e.target.name;
+    const filter = e.currentTarget.getAttribute("name");
     filterMenu(filter);
     setShowMenu(!showMenu);
-  }
-
-  function filterMenu(filter) {
-    let filteredMenu;
-
-    if (!filter) {
-      filteredMenu = [...state.menu];
-    } else {
-      filteredMenu = state.menu.filter(
-        (item) =>
-          item.name.toLowerCase().includes(filter) ||
-          item.description.toLowerCase().includes(filter)
-      );
-    }
-
-    setFilteredMenu(filteredMenu);
-  }
-
-  function onFetchMenu() {
-    dispatch({ type: ACTIONS.LOAD_MENU, payload: menuDetails.menu });
   }
 
   useEffect(() => {
     if (!isLoading && !error) {
       onFetchMenu();
-      setFilteredMenu(menuDetails.menu)
+      setFilteredMenu(menuDetails.menu);
     }
   }, [isLoading, error]);
 
@@ -58,55 +72,62 @@ function MenuPage({ addToCart }) {
   return (
     <>
       <Error errorMessage={error} />
-      <div className="show-menu-button-container">
-        <button
-          className="button-show-menu"
-          onClick={() => setShowMenu(!showMenu)}
+      <Paper
+        sx={{
+          display: { xs: "none", sm: "flex" },
+          justifyContent: "center",
+          alignItems: "center",
+          flexWrap: "wrap",
+          position: "sticky",
+          top: "4rem",
+        }}
+      >
+        {menu.map((dish) => (
+          <Button
+            color="inherit"
+            key={dish}
+            name={dish}
+            onClick={handleOnclick}
+          >
+            {dish}
+          </Button>
+        ))}
+      </Paper>
+      <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "4rem",
+        }}
+      >
+        <IconButton
+          onClick={toggleDrawer(true)}
+          sx={{
+            display: { xs: "block", sm: "none" },
+          }}
         >
-          <img src={Menu} alt="menu" />
-        </button>
-      </div>
-
-      <div className={`hamburger-menu ${showMenu ? "open" : ""}`}>
-        <button className="button-menu" name="salad" onClick={handleOnclick}>
-          Salad
-        </button>
-        <button className="button-menu" name="rice" onClick={handleOnclick}>
-          Rice
-        </button>
-        <button className="button-menu" name="pizza" onClick={handleOnclick}>
-          Pizza
-        </button>
-        <button className="button-menu" name="noodles" onClick={handleOnclick}>
-          Noodles
-        </button>
-        <button className="button-menu" name="paella" onClick={handleOnclick}>
-          Paella
-        </button>
-        <button className="button-menu" name="steak" onClick={handleOnclick}>
-          Steaks
-        </button>{" "}
-        <button className="button-menu" name="seafood" onClick={handleOnclick}>
-          Seafood
-        </button>{" "}
-        <button
-          className="button-menu"
-          name="appetizer"
-          onClick={handleOnclick}
-        >
-          Appetizer
-        </button>{" "}
-        <button className="button-menu" name="dessert" onClick={handleOnclick}>
-          Dessert
-        </button>
-        <button className="button-menu" name="cheese" onClick={handleOnclick}>
-          Cheese
-        </button>
-        <button className="button-menu" name="wine" onClick={handleOnclick}>
-          Wine
-        </button>
-      </div>
-
+          <Menu />
+        </IconButton>
+      </Paper>
+      <Drawer
+        anchor="top"
+        open={open}
+        onClose={toggleDrawer(false)}
+        sx={{ display: { xs: "block", sm: "none" } }}
+      >
+        <Box role="presentation" onClick={toggleDrawer(false)}>
+          <List>
+            {menu.map((dish, index) => (
+              <ListItem key={index} disablePadding>
+                <ListItemButton name={dish} onClick={handleOnclick}>
+                  <ListItemText primary={dish} sx={{ textAlign: "center" }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Drawer>
       <ul className="cards">
         {filteredMenu.map((dish) => (
           <li className="card" key={dish._id}>
@@ -121,7 +142,12 @@ function MenuPage({ addToCart }) {
             <p>{dish.description}</p>
             <div className="cart-bottom">
               <span>Price: {dish.price}</span>
-              <button className="button-add-to-cart" onClick={() => addToCart(dish)}>Add + </button>
+              <button
+                className="button-add-to-cart"
+                onClick={() => addToCart(dish)}
+              >
+                Add +{" "}
+              </button>
             </div>
           </li>
         ))}

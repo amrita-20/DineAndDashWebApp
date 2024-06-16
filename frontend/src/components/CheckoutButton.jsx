@@ -46,7 +46,7 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }) => {
 
   return (
     <>
-      <button disabled={disabled} className="button-checkou" onClick={() => setModal(true)}>
+      <button disabled={disabled} className="button-checkout" onClick={() => setModal(true)}>
         Go to checkout
       </button>
       <Modal  
