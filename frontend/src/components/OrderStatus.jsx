@@ -65,7 +65,7 @@ function OrderStatus() {
                 {order.cartItems.map((dish) => (
                   <li key={dish.dishId} className="card-item-detail">
                     <div className="item-image-container">
-                      <img className="item-image" src={dish.image} alt="" />
+                      <img className="item-image" src={dish.imagePath} alt="" />
                     </div>
                     <div className="item-text">
                       <span className="item-name">{dish.name}</span>

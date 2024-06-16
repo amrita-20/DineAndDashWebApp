@@ -46,7 +46,7 @@ function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
         <IconButton component={Link} to="/" color="inherit">
           <Home />
         </IconButton>
-        <h1 className="logo-title">Dish&Dash</h1>
+        <h1 className="logo-title">Dine&Dash</h1>
       </div>
       <div className="search-container">
         <form className="form-search" onSubmit={handleSubmitSearch}>

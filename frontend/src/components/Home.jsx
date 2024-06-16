@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../css/Home.css";
 
 function Home() {
@@ -11,8 +12,10 @@ function Home() {
         />
         <h1 className="home-title">La Vita Bella</h1>
       </div>
+     <div className="menu-navigation">
+     <Link to="/menu" className="explore-menu">Explore Menu</Link>
       <p className="home-text">
-        Welcome to Bonnati, where the spirit of Italy comes alive in our
+        Welcome to Dine&Dash, where the spirit of Italy comes alive in our
         Summer Festival of Pizzas! This season, indulge in a vibrant celebration
         of flavors with our artisanal pizzas, crafted to perfection by our
         master pizzaiolos. Savor the sunshine with our special creations like
@@ -23,6 +26,7 @@ function Home() {
         sounds of traditional Italian music, making every bite an unforgettable
         summer experience. Buon appetito!
       </p>
+      </div>
     </>
   );
 }
