@@ -34,8 +34,6 @@
 }
 
 .order-date {
-    font-weight: bold;
-
     grid-column: 2 span;
 }
 
