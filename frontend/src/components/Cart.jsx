@@ -1,6 +1,9 @@
 import CheckoutButton from "./CheckoutButton";
 import { useCreateCheckoutSession } from "../services/OrderServices";
 
+import { IconButton } from "@mui/material";
+import { Add, Remove } from "@mui/icons-material";
+
 import "../css/Cart.css";
 
 function Cart({
@@ -97,27 +100,28 @@ function Cart({
             <span className="dish-price">{dish.price}</span>
 
             <div className="quantity-control">
-              <button
-                className="button-decrease"
-                type="button"
-                disabled={dish.quantity === 0}
-                onClick={() => {
-                  removeFromCart(dish);
-                }}
-              >
-                -
-              </button>
+              <IconButton>
+                <Remove
+                  className="button-decrease"
+                  type="button"
+                  disabled={dish.quantity === 0}
+                  onClick={() => {
+                    removeFromCart(dish);
+                  }}
+                />
+              </IconButton>
               <span className="dish-quantity">{dish.quantity}</span>
-              <button
-                className="button-increase"
-                type="button"
-                onClick={() => {
-                  addToCart(dish);
-                }}
-              >
-                +
-              </button>
+              <IconButton>
+                <Add
+                  className="button-increase"
+                  type="button"
+                  onClick={() => {
+                    addToCart(dish);
+                  }}
+                />
+              </IconButton>
             </div>
+
             <span className="dish-subtotal">{dish.quantity * dish.price}</span>
           </li>
         ))}
