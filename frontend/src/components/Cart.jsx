@@ -70,6 +70,7 @@ function Cart({
         name: cartItem.name,
         quantity: cartItem.quantity.toString(),
         price: cartItem.price,
+        imagePath: cartItem.imagePath
       })),
       deliveryDetails: {
         name: userFormData.name,
