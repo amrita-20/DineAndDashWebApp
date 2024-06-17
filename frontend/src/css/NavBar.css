@@ -17,8 +17,6 @@ header {
 }
 
 .logo-container {
-    grid-column: 1 span;
-
     display: flex;
     justify-content: space-evenly;
 
