@@ -24,6 +24,7 @@ type CheckoutSessionRequest = {
 };
 
 const createLineItems = (checkoutSessionReq: CheckoutSessionRequest) => {
+  console.log("cartitem fee" , parseInt(checkoutSessionReq.cartItems[0].price))
   const lineItems = checkoutSessionReq.cartItems.map((cartItem) => {
     const line_item: Stripe.Checkout.SessionCreateParams.LineItem = {
       price_data: {
@@ -76,6 +77,7 @@ const createCheckoutSession = async (req: Request, res: Response) => {
   try {
     const checkoutSessionRequest: CheckoutSessionRequest = req.body;
     const lineItems = createLineItems(checkoutSessionRequest);
+    console.log("delivery fee" , parseInt(checkoutSessionRequest.deliveryFee))
 
     const newOrder = new Order({
       user: req.userId,
@@ -105,11 +107,6 @@ const createCheckoutSession = async (req: Request, res: Response) => {
 };
 
 const stripeWebhookHandler = async (req: Request, res: Response) => {
-  // console.log("Received event");
-  // console.log("==============");
-  // console.log("event: ", req.body);
-  // res.send();
-
   let event;
 
   try {

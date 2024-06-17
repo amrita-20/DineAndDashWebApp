@@ -3,24 +3,21 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreateUserReuest } from "../services/UserServices";
 
-function AuthCallback(){
-    const navigate = useNavigate();
-    const { user } = useAuth0();
-    const { createUser } = useCreateUserReuest();
-    const hasCreatedUser = useRef(false);
+function AuthCallback() {
+  const navigate = useNavigate();
+  const { user } = useAuth0();
+  const { createUser } = useCreateUserReuest();
+  const hasCreatedUser = useRef(false);
 
-    useEffect( () => {
-        if (user?.sub && user?.email && !hasCreatedUser.current) {
-            createUser({ auth0Id: user.sub, email: user.email });
-            hasCreatedUser.current = true;
-        }
-        navigate("/");
-    }, [createUser, navigate, user])
+  useEffect(() => {
+    if (user?.sub && user?.email && !hasCreatedUser.current) {
+      createUser({ auth0Id: user.sub, email: user.email });
+      hasCreatedUser.current = true;
+    }
+    navigate("/");
+  }, [createUser, navigate, user]);
 
-    return(
-        <div>Loading...</div>
-    )
+  return <div>Loading...</div>;
 }
 
 export default AuthCallback;
-

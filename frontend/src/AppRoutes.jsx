@@ -75,7 +75,7 @@ function AppRoutes() {
             name: menuItem.name,
             price: menuItem.price,
             quantity: 1,
-            imagePath: menuItem.imagePath
+            imagePath: menuItem.imagePath,
           },
         ];
       }
@@ -172,6 +172,7 @@ function AppRoutes() {
             <Layout cartItems={cartItems}>
               <Cart
                 cartItems={cartItems}
+                setCartItems={setCartItems}
                 addToCart={addToCart}
                 removeFromCart={removeFromCart}
               />
