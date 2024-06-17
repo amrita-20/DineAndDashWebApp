@@ -6,8 +6,8 @@ import UserProfileForm from "./UserProfileForm";
 import { useGetUserDetails } from "../services/UserServices";
 import Modal from "./Modal";
 
-const CheckoutButton = ({ onCheckout, disabled, isLoading }) => {
-  const [modal, setModal] = useState(false);
+const CheckoutButton = ({ onCheckout, disabled, isLoading, setModal, modal}) => {
+  //const [modal, setModal] = useState(false);
 
   const {
     isAuthenticated,
@@ -39,19 +39,16 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }) => {
     return <div>Loading ....</div>;
   }
 
-//   const handleCheckout = () => {
-//     onCheckout();
-//     setModal(false);
-//   }
-
   return (
     <>
-      <button disabled={disabled} className="button-checkout" onClick={() => setModal(true)}>
+      <button
+        disabled={disabled}
+        className="button-checkout"
+        onClick={() => setModal(true)}
+      >
         Go to checkout
       </button>
-      <Modal  
-      openModal={modal}
-      closeModal={() => setModal(false)}>
+      <Modal openModal={modal} closeModal={() => setModal(false)}>
         <UserProfileForm
           userDetails={userDetails}
           onSave={onCheckout}
