@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { AppBar, Badge, IconButton, Stack, Typography } from "@mui/material";
+import { Badge, IconButton, Typography } from "@mui/material";
 import {
   AccountCircle,
   Home,
@@ -16,7 +16,12 @@ import {
 
 import "../css/NavBar.css";
 
-function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
+function NavBar({ cartItems, filterMenu }) {
+
+  const location = useLocation();
+
+  console.log(location.pathname)
+
   // Dropmenu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -37,8 +42,6 @@ function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
     setShowMenu(!showMenu);
   }
 
-  function handleCartItems() {}
-
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
   return (
     <header>
@@ -48,21 +51,25 @@ function NavBar({ cartItems, filterMenu, filteredMenu, setFilteredMenu }) {
         </IconButton>
         <h1 className="logo-title">Dine&Dash</h1>
       </div>
-      <div className="search-container">
-        <form className="form-search" onSubmit={handleSubmitSearch}>
-          <input
-            type="text"
-            className="search"
-            placeholder="Search menu..."
-            onChange={(e) => setFilter(e.target.value)}
-          />
-          <IconButton className="button-search">
-            <Search className="search-icon" sx={{ color: "black" }} />
-          </IconButton>
-        </form>
-      </div>
 
-      {/* TO FIX: the cart only counts different types of dishes, not number of dishes */}
+      {location.pathname === "/menu" ? (
+        <div className="search-container">
+          <form className="form-search" onSubmit={handleSubmitSearch}>
+            <input
+              type="text"
+              className="search"
+              placeholder="Search menu..."
+              onChange={(e) => setFilter(e.target.value)}
+            />
+            <IconButton className="button-search">
+              <Search className="search-icon" sx={{ color: "black" }} />
+            </IconButton>
+          </form>
+        </div>
+      ) : 
+        (<div className="search-container"></div>)
+      }
+
       <div className="control-container">
         <IconButton component={Link} to="/cart" color="inherit">
           <Badge badgeContent={cartItems.length} color="secondary">
