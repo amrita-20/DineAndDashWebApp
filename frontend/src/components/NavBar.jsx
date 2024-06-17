@@ -17,10 +17,9 @@ import {
 import "../css/NavBar.css";
 
 function NavBar({ cartItems, filterMenu }) {
-
   const location = useLocation();
 
-  console.log(location.pathname)
+  console.log(location.pathname);
 
   // Dropmenu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -51,9 +50,8 @@ function NavBar({ cartItems, filterMenu }) {
         </IconButton>
         <h1 className="logo-title">Dine&Dash</h1>
       </div>
-
-      {location.pathname === "/menu" ? (
-        <div className="search-container">
+      <div className="search-container">
+        {location.pathname === "/menu" && (
           <form className="form-search" onSubmit={handleSubmitSearch}>
             <input
               type="text"
@@ -65,18 +63,14 @@ function NavBar({ cartItems, filterMenu }) {
               <Search className="search-icon" sx={{ color: "black" }} />
             </IconButton>
           </form>
-        </div>
-      ) : 
-        (<div className="search-container"></div>)
-      }
-
+        )}
+      </div>
       <div className="control-container">
         <IconButton component={Link} to="/cart" color="inherit">
           <Badge badgeContent={cartItems.length} color="secondary">
             <ShoppingCart />
           </Badge>
         </IconButton>
-
         {isAuthenticated ? (
           <nav>
             <IconButton
@@ -119,7 +113,6 @@ function NavBar({ cartItems, filterMenu }) {
                   Orders Management
                 </MenuItem>
               )}
-
               <MenuItem
                 component={Link}
                 to="/user-profile"
