@@ -32,7 +32,10 @@
 
     font-size: 0.9rem;
 }
-
+.delivery-info {
+    display: flex;
+    gap: .5rem;
+}
 .order-date {
     grid-column: 2 span;
 }

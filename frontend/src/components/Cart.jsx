@@ -1,3 +1,4 @@
+import { useState } from "react";
 import CheckoutButton from "./CheckoutButton";
 import { useCreateCheckoutSession } from "../services/OrderServices";
 
@@ -6,15 +7,8 @@ import { Add, Remove } from "@mui/icons-material";
 
 import "../css/Cart.css";
 
-function Cart({
-  cartItems,
-  addToCart,
-  removeFromCart,
-  onPlaceOrder,
-  info,
-  errorMessage,
-  setErrorMessage,
-}) {
+function Cart({ cartItems, setCartItems, addToCart, removeFromCart }) {
+  const [modal, setModal] = useState(false);
   const { createCheckoutSession, isLoading: isCheckoutLoading } =
     useCreateCheckoutSession();
 
@@ -36,41 +30,15 @@ function Cart({
     return (getTotalCost() + getDeliveryFee()).toFixed(2);
   };
 
-  function handleClick(dishId, operator) {
-    onUpdateCart({ dishId, operator }); // Here we setCart already. So cart is not empty
-  }
-
-  function handleOptionChange(e) {
-    setOption(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const orderData = {
-      orderItems: cart,
-      orderType: option,
-    };
-
-    // if (option === 'online' && info.address.length === 0) {
-    //   setErrorMessage("Please provide a valid address.")
-    //   console.log(errorMessage)
-    //   setPage("profile");
-    //   return;
-    // }
-
-    onPlaceOrder(orderData);
-    setPage("processing");
-  }
-
   const onCheckout = async (userFormData) => {
+    setModal(false);
     const checkoutData = {
       cartItems: cartItems.map((cartItem) => ({
         dishId: cartItem._id,
         name: cartItem.name,
         quantity: cartItem.quantity.toString(),
         price: cartItem.price,
-        imagePath: cartItem.imagePath
+        imagePath: cartItem.imagePath,
       })),
       deliveryDetails: {
         name: userFormData.name,
@@ -82,6 +50,7 @@ function Cart({
     };
 
     const data = await createCheckoutSession(checkoutData);
+    sessionStorage.setItem("cartItems", []);
     window.location.href = data.url;
   };
 
@@ -135,18 +104,12 @@ function Cart({
                 Delivery Fee: {getDeliveryFee().toFixed(2)}
               </div>
               <div className="cart-total">Total: {getTotalWithDelivery()}</div>
-              {/* <select
-                  name="select-mode"
-                  id="mode"
-                  onChange={handleOptionChange}
-                >
-                  <option value="table">In store</option>
-                  <option value="online">Online</option>
-                </select> */}
               <CheckoutButton
                 disabled={cartItems.length === 0}
                 onCheckout={onCheckout}
                 isLoading={isCheckoutLoading}
+                setModal={setModal}
+                modal={modal}
               />
             </div>
           </>
