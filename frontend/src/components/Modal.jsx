@@ -16,7 +16,7 @@ function Modal( { openModal, closeModal, children } ) {
       ref={ref}
       onCancel={closeModal}
     > 
-    <button onClick={closeModal}>
+    <button className="button-modal-close" onClick={closeModal}>
         Close
     </button>
 

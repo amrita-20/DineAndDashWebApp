@@ -81,7 +81,8 @@
     margin-right: 1rem;
 }
 
-.button-checkout {
+.button-checkout, 
+.button-modal-close {
     font-size: 1rem;
     color: white;
 
@@ -94,11 +95,14 @@
 
 }
 
-.button-checkout:hover {
+.button-checkout:hover, 
+.button-modal-close:hover {
     cursor: pointer;
 }
 
-.button-checkout:active {
+.button-checkout:active,
+.button-modal-close:active {
+    cursor: pointer; 
     transform: translateY(1px);
     transition: transform 0.1s ease;
     background-color: #ffcc00;

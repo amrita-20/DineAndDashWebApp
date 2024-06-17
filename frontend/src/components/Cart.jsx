@@ -70,32 +70,34 @@ function Cart({ cartItems, setCartItems, addToCart, removeFromCart }) {
             <span className="dish-price">{dish.price}</span>
 
             <div className="quantity-control">
-              <IconButton size="small" sx={{ padding: "0" }}>
-                <Remove
-                  className="button-decrease"
-                  type="button"
-                  disabled={dish.quantity === 0}
-                  onClick={() => {
-                    removeFromCart(dish);
-                  }}
-                />
+              <IconButton
+                size="small"
+                sx={{ padding: "0" }}
+                className="button-decrease"
+                type="button"
+                disabled={dish.quantity === 0}
+                onClick={() => {
+                  removeFromCart(dish);
+                }}
+              >
+                <Remove />
               </IconButton>
               <span className="dish-quantity">{dish.quantity}</span>
-              <IconButton size="small" sx={{ padding: "0" }}>
-                <Add
-                  className="button-increase"
-                  type="button"
-                  onClick={() => {
-                    addToCart(dish);
-                  }}
-                />
+              <IconButton
+                size="small"
+                sx={{ padding: "0" }}
+                className="button-increase"
+                type="button"
+                onClick={() => {
+                  addToCart(dish);
+                }}
+              >
+                <Add />
               </IconButton>
             </div>
-
             <span className="dish-subtotal">{dish.quantity * dish.price}</span>
           </li>
         ))}
-
         {cartItems.length !== 0 ? (
           <>
             <hr />
