@@ -100,7 +100,7 @@ function Cart({
             <span className="dish-price">{dish.price}</span>
 
             <div className="quantity-control">
-              <IconButton>
+              <IconButton size="small" sx={{ padding: "0" }}>
                 <Remove
                   className="button-decrease"
                   type="button"
@@ -111,7 +111,7 @@ function Cart({
                 />
               </IconButton>
               <span className="dish-quantity">{dish.quantity}</span>
-              <IconButton>
+              <IconButton size="small" sx={{ padding: "0" }}>
                 <Add
                   className="button-increase"
                   type="button"
