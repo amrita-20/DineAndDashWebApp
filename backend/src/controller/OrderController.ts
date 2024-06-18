@@ -11,7 +11,7 @@ type CheckoutSessionRequest = {
     dishId: string;
     name: string;
     quantity: string;
-    price: string;
+    price: number;
     imagePath: string;
   }[];
   deliveryDetails: {
@@ -20,16 +20,16 @@ type CheckoutSessionRequest = {
     phone: number;
     address: {};
   };
-  deliveryFee: string;
+  deliveryFee: number;
 };
 
 const createLineItems = (checkoutSessionReq: CheckoutSessionRequest) => {
-  console.log("cartitem fee" , parseInt(checkoutSessionReq.cartItems[0].price))
+  //console.log("cartitem fee" , parseInt(checkoutSessionReq.cartItems[0].price))
   const lineItems = checkoutSessionReq.cartItems.map((cartItem) => {
     const line_item: Stripe.Checkout.SessionCreateParams.LineItem = {
       price_data: {
         currency: "usd",
-        unit_amount: parseInt(cartItem.price),
+        unit_amount: Math.round(cartItem.price*100),
         product_data: {
           name: cartItem.name,
         },
@@ -56,7 +56,7 @@ const createSession = async (
           display_name: "Delivery",
           type: "fixed_amount",
           fixed_amount: {
-            amount: deliveryPrice,
+            amount: Math.round(deliveryPrice*100),
             currency: "usd",
           },
         },
@@ -77,14 +77,14 @@ const createCheckoutSession = async (req: Request, res: Response) => {
   try {
     const checkoutSessionRequest: CheckoutSessionRequest = req.body;
     const lineItems = createLineItems(checkoutSessionRequest);
-    console.log("delivery fee" , parseInt(checkoutSessionRequest.deliveryFee))
+    console.log("delivery fee" , checkoutSessionRequest.deliveryFee)
 
     const newOrder = new Order({
       user: req.userId,
       status: "placed",
       deliveryDetails: checkoutSessionRequest.deliveryDetails,
       cartItems: checkoutSessionRequest.cartItems,
-      deliveryFee: parseInt(checkoutSessionRequest.deliveryFee),
+      deliveryFee: checkoutSessionRequest.deliveryFee,
       createdAt: new Date(),
     });
 

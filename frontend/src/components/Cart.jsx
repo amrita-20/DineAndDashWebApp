@@ -46,7 +46,7 @@ function Cart({ cartItems, setCartItems, addToCart, removeFromCart }) {
         email: userFormData.email,
         address: userFormData.address,
       },
-      deliveryFee: getDeliveryFee().toFixed(2),
+      deliveryFee: getDeliveryFee(),
     };
 
     const data = await createCheckoutSession(checkoutData);
