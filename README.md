@@ -36,17 +36,17 @@ www.website.com
 # Architecture
 
 ## Services
-    - Auth: sign up/log in/log ou; generate JWT for follow-up requests
-    - Client: show frontend pages
+    - Auth0: sign up/log in/log out generate JWT for follow-up requests
     - Menu: view/filter/search dishes
     - Cart: add/remove dishes
     - Orders: view/handle orders
-    - Payments: Handles debit/credit card payments. Cancel orders if payment fails, completes
+    - Payment Gateway - Stripe: Handles debit/credit card payments. Cancel orders if payment fails, completes
       if payment succeeds
 
 # Technical Stacks
-## Backend
+## Backend - Services
 - Node.js
+- TypeScript
 - Express
 
 ## Database
@@ -54,7 +54,12 @@ www.website.com
 
 ## Frontend
 - React.js
+- JavaScript
+- HTML
+- CSS
 - MUI
+- ReactQuery
+
 
 ## Build and Deploy
 - Railway (First phase)
