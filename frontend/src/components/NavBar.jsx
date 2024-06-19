@@ -19,8 +19,6 @@ import "../css/NavBar.css";
 function NavBar({ cartItems, filterMenu }) {
   const location = useLocation();
 
-  console.log(location.pathname);
-
   // Dropmenu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
