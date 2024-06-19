@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
 import {auth} from 'express-oauth2-jwt-bearer';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
@@ -11,6 +12,15 @@ declare global {
       }
     }
   }
+
+  type UserType = {
+    _id: mongoose.Types.ObjectId,
+    auth0Id: string,
+    email: string,
+    name: string,
+    phone: number,
+    addresses: []
+  } 
 
 export const jwtCheck = auth({
     audience: process.env.AUTH0_AUDIENCE,
@@ -29,13 +39,13 @@ export const jwtCheck = auth({
     try {
         const decoded = jwt.decode(authToken) as jwt.JwtPayload;
         const auth0Id = decoded.sub;
-        const user = await User.findOne({ auth0Id });
+        const user : UserType | null = await User.findOne({ auth0Id }) as UserType | null;
 
         if(!user){
             return res.sendStatus(401);
         }
         req.auth0Id = auth0Id as string;
-        req.userId = (user._id as string).toString();
+        req.userId= (user._id).toString();
         console.log("req", req);
         next();
     }

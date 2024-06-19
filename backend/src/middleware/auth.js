@@ -35,7 +35,7 @@ const jwtParse = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             return res.sendStatus(401);
         }
         req.auth0Id = auth0Id;
-        req.userId = user._id.toString();
+        req.userId = (user._id).toString();
         console.log("req", req);
         next();
     }

@@ -33,6 +33,7 @@ const addressSchema = new mongoose_1.Schema({
 });
 const userSchema = new mongoose_1.Schema({
     auth0Id: { type: String, required: true },
+    _id: mongoose_1.default.Types.ObjectId,
     email: { type: String, required: true },
     name: String,
     phone: Number,

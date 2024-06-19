@@ -26,6 +26,7 @@ const addressSchema = new Schema<Address>({
 
 const userSchema: Schema = new Schema<User>({
   auth0Id: { type: String, required: true },
+  _id: mongoose.Types.ObjectId,
   email: {type: String, required: true},
   name: String,
   phone: Number,
