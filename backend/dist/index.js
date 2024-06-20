@@ -16,7 +16,7 @@ console.log("MongoDB URI:", process.env.MONGODB_URI);
 mongoose_1.default.connect(process.env.MONGODB_URI).then(() => console.log("DB connection done!"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use(express_1.default.static(path_1.default.join(__dirname, '../public/dist')));
+app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 app.use((0, cors_1.default)());
 app.use('/api/v1/user/profile', UserRoute_1.default);
 app.use('/api/v1/menu', MenuRoute_1.default);
