@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGODB_URI as string).then(() => console.log("DB c
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public/dist')));
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(cors());
 
 app.use('/api/v1/user/profile', userRoute);
