@@ -144,3 +144,9 @@
         margin-top: 2rem;
     }
 }
+
+@media (min-width: 1200px) {
+    .cards {
+        margin: 0 15rem;
+    }
+}
