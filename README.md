@@ -5,11 +5,11 @@ A web application for clients to order food online or in-store and managers to m
 www.website.com
 
 ## Table of Contents
-- About the App
+- [About the App](#about-the-app)
     - Features
-- Architecture
+- [Architecture](#architecture)
     - Services
-- Technical Stacks
+- [Technical Stacks](#technical-stacks)
     - Backend
     - Frontend
     - Database
@@ -40,8 +40,8 @@ www.website.com
     - Menu: view/filter/search dishes
     - Cart: add/remove dishes
     - Orders: view/handle orders
-    - Payment Gateway - Stripe: Handles debit/credit card payments. Cancel orders if payment fails, completes
-      if payment succeeds
+    - Payment Gateway - Stripe: Handles debit/credit card payments. Cancel orders if payment fails,
+    complete if payment succeeds
 
 # Technical Stacks
 ## Backend - Services
@@ -59,7 +59,6 @@ www.website.com
 - CSS
 - MUI
 - ReactQuery
-
 
 ## Build and Deploy
 - Railway (First phase)
