@@ -34,6 +34,7 @@ www.website.com
     - handle orders
 
 # Architecture
+![diagram drawio](https://github.com/amrita-20/DineAndDashWebApp/assets/116283847/6cbd5b18-c275-4c5e-8e15-78354f3b0ccc)
 
 ## Services
     - Auth0: sign up/log in/log out generate JWT for follow-up requests
