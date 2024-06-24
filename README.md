@@ -2,7 +2,7 @@
 
 A web application for clients to order food online or in-store and managers to manage orders.
 
-www.website.com
+https://dine-dash.up.railway.app/
 
 ## Table of Contents
 - [About the App](#about-the-app)
