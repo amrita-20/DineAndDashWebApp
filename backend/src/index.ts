@@ -16,6 +16,10 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(cors());
 
+app.get("/health", async (req: Request, res: Response) => {
+  res.send({ message: "health OK!" });
+});
+
 app.use('/api/v1/user/profile', userRoute);
 app.use('/api/v1/menu', menuRoute);
 app.use('/api/order', orderRoute);
