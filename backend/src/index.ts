@@ -26,11 +26,6 @@ app.use('/api/order', orderRoute);
 
 app.use('/api/order/checkout/webhook', express.raw({ type: "*/*"}));
 
-// app.get('/test', async (req: Request, res: Response) => {
-//    // const menu = await getMenu()
-//     res.json({ message: "Testing" });
-// })
-
 app.listen(PORT, () => {
     console.log("server is running");
 })
