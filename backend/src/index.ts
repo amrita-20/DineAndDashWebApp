@@ -8,7 +8,6 @@ import orderRoute from "./routes/OrderRoute";
 import path from 'path';
 
 const PORT = process.env.PORT || 3000;
-console.log("MongoDB URI:", process.env.MONGODB_URI);
 mongoose.connect(process.env.MONGODB_URI as string).then(() => console.log("DB connection done!"));
 
 const app = express();
@@ -26,6 +25,7 @@ app.use('/api/order', orderRoute);
 
 app.use('/api/order/checkout/webhook', express.raw({ type: "*/*"}));
 
-app.listen(PORT, () => {
-    console.log("server is running");
-})
+export function start(): void
+{   app.listen(PORT, () => {     console.log(`Server is running on http://localhost:${PORT}`); });
+}
+
