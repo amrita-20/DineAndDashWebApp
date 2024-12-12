@@ -19,6 +19,10 @@ app.get("/health", async (req: Request, res: Response) => {
   res.send({ message: "health OK!" });
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+});
+
 app.use('/api/v1/user/profile', userRoute);
 app.use('/api/v1/menu', menuRoute);
 app.use('/api/order', orderRoute);
