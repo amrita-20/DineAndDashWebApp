@@ -8,7 +8,7 @@ export const useGetOrders = () => {
 
   const getOrderRequest = async () => {
     const authToken = await getAccessTokenSilently();
-    const response = await fetch(`${API_BASE_URL}/api/order`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/order`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -36,7 +36,7 @@ export const useGetAllOrders = () => {
 
   const getAllOrderRequest = async () => {
     const authToken = await getAccessTokenSilently();
-    const response = await fetch(`${API_BASE_URL}/api/order/all`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/order/all`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -65,7 +65,7 @@ export const useCreateCheckoutSession = () => {
     const authToken = await getAccessTokenSilently();
 
     const response = await fetch(
-      `${API_BASE_URL}/api/order/checkout/create-checkout-session`,
+      `${API_BASE_URL}/api/v1/order/checkout/create-checkout-session`,
       {
         method: "POST",
         headers: {
@@ -103,7 +103,7 @@ export const useUpdateOrderStatus = () => {
     const authToken = await getAccessTokenSilently();
 
     const response = await fetch(
-      `${API_BASE_URL}/api/order/${updateStatusOrderRequest.orderId}/status`,
+      `${API_BASE_URL}/api/v1/order/${updateStatusOrderRequest.orderId}/status`,
       {
         method: "PATCH",
         headers: {
