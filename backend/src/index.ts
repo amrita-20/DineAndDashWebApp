@@ -19,15 +19,15 @@ app.get("/health", async (req: Request, res: Response) => {
   res.send({ message: "health OK!" });
 });
 
+app.use('/api/v1/user/profile', userRoute);
+app.use('/api/v1/menu', menuRoute);
+app.use('/api/v1/order', orderRoute);
+
+app.use('/api/v1/order/checkout/webhook', express.raw({ type: "*/*"}));
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
-
-app.use('/api/v1/user/profile', userRoute);
-app.use('/api/v1/menu', menuRoute);
-app.use('/api/order', orderRoute);
-
-app.use('/api/order/checkout/webhook', express.raw({ type: "*/*"}));
 
 export function start(): void
 {   app.listen(PORT, () => {     console.log(`Server is running on http://localhost:${PORT}`); });
